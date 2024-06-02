@@ -34,6 +34,7 @@
 
                 <div class="d-flex justify-content-between p-3">
                     <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                    <span>Página {{ currentPage }} de {{ totalPages }}</span>
                     <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
                   </div>
 

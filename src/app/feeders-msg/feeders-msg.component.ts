@@ -27,11 +27,20 @@ export class FeedersMsgComponent  {
     { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
     { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
     { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
+    { title: 'Public', author: 'fulano de tal', content: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.' },
     // Adicione mais mensagens conforme necessário
   ];
 
   currentPage = 1;
   itemsPerPage = 5;
+  totalPages = Math.ceil(this.messages.length/this.itemsPerPage);
 
   get paginatedMessages(): Message[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
