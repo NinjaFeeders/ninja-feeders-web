@@ -1,0 +1,46 @@
+<div class="container p-0">
+    <div class="wrapper d-flex flex-column min-vh-100">
+        <div class=" wrapper flex-grow-1">
+            <div class="d-flex flex-column pt-3">
+
+
+
+
+
+                <!--   inicio da extrutura do comentario-->
+
+                <div class="m-2 border-top border-bottom p-3" *ngFor="let messages of paginatedMessages">
+                    <div class="d-flex flex-row  justify-content-between">
+                        <div>
+                            <img width="50px" src="../../assets/icones/usuario-de-perfil.png" alt="...">
+                        </div>
+                        <div>
+                            <h3>{{messages.title}}</h3>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{messages.author}}</h5>
+                        <p class="card-text">{{messages.content}}</p>
+                        <button class="btn btn-outline-secondary">Comentar</button>
+                    </div>
+                </div>
+
+                <!-- fim da extrutura do comentario-->
+
+
+             
+
+
+                <div class="d-flex justify-content-between p-3">
+                    <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                    <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
+                  </div>
+
+
+               
+
+            </div>
+        </div>
+    </div>
+</div>
