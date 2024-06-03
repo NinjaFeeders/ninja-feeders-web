@@ -10,36 +10,54 @@
                 <!--   inicio da extrutura do comentario-->
 
                 <div class="m-2 border-top border-bottom p-3" *ngFor="let messages of paginatedMessages">
-                    <div class="d-flex flex-row  justify-content-between">
+                    <div class="d-flex flex-row  justify-content-between"> <!-- container da imagen de perfil, e tipo de msg-->
                         <div>
-                            <img width="50px" src="../../assets/icones/usuario-de-perfil.png" alt="...">
+                            <img width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
                         </div>
                         <div>
                             <h3>{{messages.title}}</h3>
                         </div>
 
                     </div>
-                    <div class="card-body">
+                    <div class="card-body"> <!-- container  do autor da msg e msg em si-->
                         <h5 class="card-title">{{messages.author}}</h5>
-                        <p class="card-text">{{messages.content}}</p>
+                        <p class="card-text"[ngClass]="{'collapsed': !expandedMessages[i]}" [style.max-height]="expandedMessages[i] ? 'none' : '4.5em'" [style.overflow]="expandedMessages[i] ? 'visible' : 'hidden'">{{messages.content}}</p>
+                        <a href="#" (click)="toggleExpand(i)" class="expand-toggle">{{expandedMessages[i] ? 'Contrair' : 'Expandir'}}</a>
+
+                    </div>
+                    <div class="mt-1 d-flex  justify-content-between  w-100">
                         <button class="btn btn-outline-secondary">Comentar</button>
+                        <div class=" d-flex justify-content-around">
+                            <div class="me-2">
+                                <button class="btn btn-outline-danger border-0">
+                                    <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" />
+                                </button>
+                            </div>
+                            <div class="me-2">
+                                <button class="btn btn-outline-info border-0">
+                                    <img width="50px" src="../../assets/like/gostar.png" />
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- fim da extrutura do comentario-->
 
 
-             
+
 
 
                 <div class="d-flex justify-content-between p-3">
-                    <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                    <button class="btn btn-primary" (click)="previousPage()"
+                        [disabled]="currentPage === 1">Previous</button>
                     <span>Página {{ currentPage }} de {{ totalPages }}</span>
-                    <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
-                  </div>
+                    <button class="btn btn-primary" (click)="nextPage()"
+                        [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
+                </div>
 
 
-               
+
 
             </div>
         </div>
