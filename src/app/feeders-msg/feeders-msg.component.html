@@ -9,7 +9,7 @@
 
                 <!--   inicio da extrutura do comentario-->
 
-                <div class="m-2 border-top border-bottom p-3" *ngFor="let messages of paginatedMessages">
+                <div class="m-2 border-top border-bottom p-3" *ngFor="let messages of paginatedMessages; let i = index">
                     <div class="d-flex flex-row  justify-content-between"> <!-- container da imagen de perfil, e tipo de msg-->
                         <div>
                             <img width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
@@ -21,8 +21,12 @@
                     </div>
                     <div class="card-body"> <!-- container  do autor da msg e msg em si-->
                         <h5 class="card-title">{{messages.author}}</h5>
-                        <p class="card-text"[ngClass]="{'collapsed': !expandedMessages[i]}" [style.max-height]="expandedMessages[i] ? 'none' : '4.5em'" [style.overflow]="expandedMessages[i] ? 'visible' : 'hidden'">{{messages.content}}</p>
-                        <a href="#" (click)="toggleExpand(i)" class="expand-toggle">{{expandedMessages[i] ? 'Contrair' : 'Expandir'}}</a>
+                        <p class="card-text"[ngClass]="{'collapsed': isExpanded(getMessageIndex(i))}"
+                         [style.max-height]="isExpanded(getMessageIndex(i))? 'none' : '4.5em'" 
+                         [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">{{messages.content}}</p>
+                        
+                        <a href="#" (click)="toggleExpand(getMessageIndex(i))" class="expand-toggle">
+                            {{isExpanded(getMessageIndex(i)) ? 'Contrair' : 'Expandir'}}</a>
 
                     </div>
                     <div class="mt-1 d-flex  justify-content-between  w-100">

@@ -70,6 +70,15 @@ export class FeedersMsgComponent implements OnInit  {
     this.expandedMessages[index] = !this.expandedMessages[index];
   }
 
+  isExpanded(index: number): boolean {
+    return this.expandedMessages[index];
+  }
+
+  getMessageIndex(paginatedIndex: number): number {
+    return (this.currentPage - 1) * this.itemsPerPage + paginatedIndex;
+  }
+
+
 
 
 }
