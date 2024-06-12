@@ -53,28 +53,12 @@ app.use(cors());
 app.use(express.json());
 
 
-// Middleware para verificar o token JWT
 
-// const authenticateJWT = (req, res, next) => {
-//   const token = req.header('Authorization').replace('Bearer ', '');
-
-//   if (!token) {
-//     return res.status(401).send({ message: 'Acesso negado!' });
-//   }
-
-//   try {
-//     const verified = jwt.verify(token, SECRET_KEY);
-//     req.user = verified;
-//     next();
-//   } catch (error) {
-//     res.status(400).send({ message: 'Token inválido!' });
-//   }
-// };
 
 
 // Rota para registrar um novo usuário da rede social ninja feeders OK
 //*****************************************************************************************************
-app.post('/users', async (req, res) => {
+app.post('/usersregister', async (req, res) => {
 
   const dbconnection = connectToDatabase();
   const { nome,username, password } = req.body;
@@ -122,41 +106,64 @@ dbconnection.query(sql, (err, results) => {
 
 
 //***************************************************************************************************** */
-// Rota para login de usuário
-// app.post('/login', (req, res) => {
 
-//   const dbconnection = connectToDatabase();
-//   const { nome, senha } = req.body;
+// Middleware para verificar o token JWT para controle de sessão apos login de usuario
 
-//   if (!nome || !senha) {
-//     return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
-//   }
+const authenticateJWT = (req, res, next) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
 
-//   const sqlSelect = 'SELECT * FROM `user` WHERE nome = ?';
-//   dbconnection.query(sqlSelect, [nome], async (error, results) => {
-//     if (error) {
-//       console.error('Erro ao buscar usuário:', error);
-//       return res.status(500).json({ message: 'Erro ao buscar usuário.' });
-//     }
+  if (!token) {
+    return res.status(401).send({ message: 'Acesso negado!' });
+  }
 
-//     if (results.length === 0) {
-//       return res.status(400).json({ message: 'Usuário não encontrado.' });
-//     }
+  try {
+    const verified = jwt.verify(token, SECRET_KEY);
+    req.user = verified;
+    next();
+  } catch (error) {
+    res.status(400).send({ message: 'Token inválido!' });
+  }
+};
 
-//     const user = results[0];
-//     const validPassword = await bcrypt.compare(senha, user.senha);
+//Rota para login de usuário
+app.post('/login', (req, res) => {
 
-//     if (!validPassword) {
-//       return res.status(400).json({ message: 'Senha incorreta.' });
-//     }
+  const dbconnection = connectToDatabase();
+  const { username, password } = req.body;
 
-//     const token = jwt.sign({ id: user.id, nome: user.nome }, SECRET_KEY, { expiresIn: '1h' });
-//     console.log("retorno do login com o token vindo pelo servidor",token);
-//     res.json({ token });
-//   });
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+  }
 
-//   disconnectFromDatabase(dbconnection);
-// });
+  const sqlSelect = 'SELECT * FROM `users` WHERE username = ?';
+  dbconnection.query(sqlSelect, [username], async (error, results) => {
+    if (error) {
+      console.error('Erro ao buscar usuário:', error);
+      return res.status(500).json({ message: 'Erro ao buscar usuário.' });
+    }
+
+    if (results.length === 0) {
+      return res.status(400).json({ message: 'Usuário não encontrado.' });
+    }
+
+    const user = results[0]; // aqui tem o retorno da pesquisa do login, se a pesquisa  encontrou os dados do usuario informado, esses dados serão armazenados aqui 
+    const validPassword = await bcrypt.compare(password, user.password);
+    const userLogin = user.username; // recuperando o nome de usuario apos login
+    if (!validPassword) {
+      return res.status(400).json({ message: 'Senha incorreta.' });
+    }
+
+    const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+    console.log("retorno do token vindo pelo servidor",token);
+    console.log("retorno do nome de usuario vindo do servidor", userLogin);
+
+    res.json({ token,userLogin });
+  });
+
+  disconnectFromDatabase(dbconnection);
+ });
+
+ 
 
 
 
@@ -166,16 +173,17 @@ dbconnection.query(sql, (err, results) => {
 app.post('/mensgens', (req, res) => {
   console.log("informações de cadastro chegando no servidor com sucesso");
   const dbconnection = connectToDatabase();
+//likes, deslikes, autor
+//|| !likes || !deslikes || !autor
+  const { msg} = req.body;
 
-  const { msg, likes, deslikes, autor} = req.body;
-
-  if (!msg || !likes || !deslikes || !autor) { // verifica se todos os valores foram fornecido, se não: retorna uma msg reclamando para prencher todos os campos 
+  if (!msg ) { // verifica se todos os valores foram fornecido, se não: retorna uma msg reclamando para prencher todos os campos 
     res.status(400).json({ error: 'Todos os campos devem ser fornecidos.' });
     return;
   }
 
-  const sql = 'INSERT INTO `mensgens` (msg, likes, deslikes, autor) VALUES (?, ?, ?, ?)';
-  dbconnection.query(sql, [msg, likes, deslikes, autor], (err, results) => {
+  const sql = 'INSERT INTO `mensgens` (msg) VALUES (?)';
+  dbconnection.query(sql, [msg], (err, results) => {
     if (err) {
       console.error('Erro ao inserir feedback:', err);
       res.status(500).json({ error: 'Erro ao inserir feedback.' });

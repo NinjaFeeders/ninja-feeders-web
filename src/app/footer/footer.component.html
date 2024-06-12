@@ -3,14 +3,14 @@
 
     <div class="row d-flex justify-content-center bg-light">
 
-        <div class="col-8  p-3 text-center ">
+        <form class="col-8  p-3 text-center " (ngSubmit)="registerMsgComp()">
             <div class="form-floating  input-group w-100 ">
-                <textarea type="text" class="form-control h-50 rounded-pill" placeholder="Leave a comment here" id="floatingTextarea  "
-                   ></textarea>
-                <label for="floatingTextarea" class="pt-4">Mensagens</label>
+                <textarea  class="form-control h-50 rounded-pill" type="text" placeholder="Mensagens" id="msg" name="msg" required 
+                  [(ngModel)]="msg" ></textarea>
+                <label for="msg" class="pt-4">Mensagens</label>
             </div>
-          
-        </div>
+            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+        </form>
 
     </div>
 </footer>
