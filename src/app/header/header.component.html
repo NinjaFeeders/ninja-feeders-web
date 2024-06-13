@@ -1,8 +1,22 @@
 <header class="container-fluid">
     <div class="row">
-        <div class="col-12 border p-5 text-center">
-        <h1>Desafio Ninja header</h1>
-    </div>
+        <div class="col-12  p-3 text-center nav-item">
+            <a class="nav-link" routerLink=""><h1 >NinjaFeeders</h1></a>
+            
+
+        </div>
+        <div class="col border-bottom p-2 d-flex justify-content-end ">
+            <div *ngIf="isLoggedIn" class="m-1">Bem-vindo, {{ username }}</div>
+        </div>
+        <div class="col border-bottom p-2 d-flex justify-content-end ">
+            <span *ngIf="!isLoggedIn" class="m-1"><a class="nav-link" routerLink="/login">login</a></span>
+            <span  *ngIf="!isLoggedIn" class="m-1" >   <a class="nav-link" routerLink="/registeruser"> register</a> </span>
+            <button type="button" *ngIf="isLoggedIn" class="m-1 btn" (click)="logout()">Logout</button>
+        </div>
+
+       
+       
+
 
     </div>
 </header>

@@ -44,6 +44,7 @@ const createConnection = () => {
         user: 'root',
         password:'',
         database:'ninjafeeders',
+        port: 3307, // essa definição de porta é importante, para usar o DB do wampserver, isso não é necessario para o xamp
     connectTimeout: 10000 // Tempo limite para a conexão em milissegundos (opcional)
   });
 };
