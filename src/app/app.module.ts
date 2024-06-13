@@ -8,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
-import { HttpClientModule } from '@angular/common/http';  // Importação do HttpClientModule
+import { HttpClientModule } from '@angular/common/http';// Importação do HttpClientModule
 
 
 @NgModule({
@@ -18,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';  // Importação do Htt
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    
   ],
   imports: [
     BrowserModule,

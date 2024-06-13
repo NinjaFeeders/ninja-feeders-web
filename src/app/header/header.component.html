@@ -11,7 +11,7 @@
         <div class="col border-bottom p-2 d-flex justify-content-end ">
             <span *ngIf="!isLoggedIn" class="m-1"><a class="nav-link" routerLink="/login">login</a></span>
             <span  *ngIf="!isLoggedIn" class="m-1" >   <a class="nav-link" routerLink="/registeruser"> register</a> </span>
-            <span type="submit" *ngIf="isLoggedIn" class="m-1"><a class="nav-link" (click)="logout()">Logout</a></span>
+            <button type="button" *ngIf="isLoggedIn" class="m-1 btn" (click)="logout()">Logout</button>
         </div>
 
        
