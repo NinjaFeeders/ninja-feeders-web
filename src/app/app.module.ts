@@ -9,6 +9,9 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { HttpClientModule } from '@angular/common/http';// Importação do HttpClientModule
+import { MsgSelectTypeMessageModule } from './msg-select-type-message/msg-select-type-message.module';
+import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room/msg-private-room.component';
+//import { MsgPrivateRoomModule } from './msg-private-room/msg-private-room.module';
 
 
 @NgModule({
@@ -25,7 +28,13 @@ import { HttpClientModule } from '@angular/common/http';// Importação do HttpC
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule  
+    HttpClientModule,
+    MsgSelectTypeMessageModule,
+    //MsgPrivateRoomModule  como estamos usango lazy loadin pra esse modulo não precisamos importa-lo  aqui
+
+  ],
+  exports:[
+    FeedersMsgComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -175,21 +175,22 @@ app.post('/mensgens', (req, res) => {
   const dbconnection = connectToDatabase();
 //likes, deslikes, autor
 //|| !likes || !deslikes || !autor
-  const { msg} = req.body;
+  const { msg , autor} = req.body;
+  console.log(autor, "chegou na rota de msg do servidor");
 
-  if (!msg ) { // verifica se todos os valores foram fornecido, se não: retorna uma msg reclamando para prencher todos os campos 
+  if (!msg || !autor ) { // verifica se todos os valores foram fornecido, se não: retorna uma msg reclamando para prencher todos os campos 
     res.status(400).json({ error: 'Todos os campos devem ser fornecidos.' });
     return;
   }
 
-  const sql = 'INSERT INTO `mensgens` (msg) VALUES (?)';
-  dbconnection.query(sql, [msg], (err, results) => {
+  const sql = 'INSERT INTO `mensgens` (msg,autor) VALUES (?,?)';
+  dbconnection.query(sql, [msg,autor], (err, results) => {
     if (err) {
       console.error('Erro ao inserir feedback:', err);
       res.status(500).json({ error: 'Erro ao inserir feedback.' });
       return;
     }else{
-    res.status(201).json({ message: 'mensgem registrada com sucesso!' });
+    res.status(201).json({ message: 'mensgem registrada com sucesso!',autor });
     }
     disconnectFromDatabase(dbconnection);
   });

@@ -1,38 +1,54 @@
-<app-header></app-header>
-<div class="container p-0 mb-5">
-    <div class="wrapper d-flex flex-column min-vh-10 mb-5">
-        <div class=" wrapper flex-grow-1 mb-5">
-            <div class="d-flex flex-column pt-3 mb-5">
+<main class="container-fluid p-0 " style="margin-bottom: 161px;">
+
+    <!-- barra lateral  para exibição do menbros da rede que estaão conectados-->
+    <aside class="user-logados   overflow-scroll col ">
+        <div class=" border-bottom ">
+            <h4 class="nome-do-usuario">Membros </h4>
+        </div>
+        <div *ngFor="let users of usersLogados" class=" row  ">
+             <a  class="nav-link ms-2" routerLink="private-room" > <p class="nome-do-usuario ">{{users.username}}</p></a> 
+           
+
+
+        </div>
+    </aside>
+    <!-- fim barra lateral  para exibição do menbros da rede que estaão conectados-->
+
+    <section class="wrapper d-flex flex-column min-vh-10   m-1 p-3">
+        <div class=" border-bottom text-center gap ">
+            <h4 class="nome-do-usuario">Mensagens </h4>
+        </div>
+        <div class=" wrapper flex-grow-1 ">
+            <div class="d-flex flex-column pt-3">
 
 
 
 
-
-                <!--   inicio da extrutura do comentario-->
-
-                <div class="m-2 border-top border-bottom p-3" *ngFor="let messages of paginatedMessages; let i = index">
-                    <div class="d-flex flex-row  justify-content-between"> <!-- container da imagen de perfil, e tipo de msg-->
+                <!-- Início da estrutura do comentário -->
+                <article class="m-2 border-top border-bottom p-3"
+                    *ngFor="let message of paginatedMessages; let i = index">
+                    <div class="d-flex flex-row justify-content-between">
+                        <!-- Container da imagem de perfil, e tipo de mensagem -->
                         <div>
                             <img width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
                         </div>
                         <div>
-                            <h3>{{messages.title}}</h3>
+                            <h3>{{message.autor}}</h3>
+
                         </div>
-
                     </div>
-                    <div class="card-body"> <!-- container  do autor da msg e msg em si-->
-                        <h5 class="card-title">{{messages.author}}</h5>
-                        <p class="card-text"[ngClass]="{'collapsed': isExpanded(getMessageIndex(i))}"
-                         [style.max-height]="isExpanded(getMessageIndex(i))? 'none' : '4.5em'" 
-                         [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">{{messages.content}}</p>
-                        
+                    <div class="card-body"> <!-- Container do autor da mensagem e mensagem em si -->
+                        <h5 class="card-title">{{ message.autor }}</h5>
+                        <p class="card-text" [ngClass]="{'collapsed': isExpanded(getMessageIndex(i))}"
+                            [style.max-height]="isExpanded(getMessageIndex(i)) ? 'none' : '4.5em'"
+                            [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">{{ message.msg }}
+                        </p>
                         <a href="#" (click)="toggleExpand(getMessageIndex(i))" class="expand-toggle">
-                            {{isExpanded(getMessageIndex(i)) ? 'Contrair' : 'Expandir'}}</a>
-
+                            {{ isExpanded(getMessageIndex(i)) ? 'Contrair' : 'Expandir' }}</a>
                     </div>
-                    <div class="mt-1 d-flex  justify-content-between  w-100">
+                    <div class="mt-1 d-flex justify-content-between w-100">
                         <button class="btn btn-outline-secondary">Comentar</button>
-                        <div class=" d-flex justify-content-around">
+                        <div class="d-flex justify-content-around">
                             <div class="me-2">
                                 <button class="btn btn-outline-danger border-0">
                                     <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" />
@@ -45,9 +61,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- fim da extrutura do comentario-->
+                </article>
+                <!-- Fim da estrutura do comentário -->
 
 
 
@@ -61,15 +76,15 @@
                         [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
                 </div>
 
-               
-                
+
 
 
 
 
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
-<app-footer></app-footer>
+
+</main>
+

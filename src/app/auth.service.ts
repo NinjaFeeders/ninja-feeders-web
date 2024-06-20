@@ -42,6 +42,10 @@ export class AuthService {
     )
      
   }
+  getAllUsers(){
+    console.log("enviando solicitação para recuperar usuarios cadastrados");
+    return this.http.get<any[]>(`${this.baseUrl}/users`);
+  }
 
  
 

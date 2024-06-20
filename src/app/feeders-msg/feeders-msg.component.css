@@ -1,6 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .collapsed {
     display: -webkit-box;
     -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+
+  .user-logados{
+    z-index: 1; 
+    float: left;
+    padding: 1%;
+   
+    height: 90rem;
+    /* border: solid 5px black; */
+
+  }
+
+  .users-visiveis{
+    border: solid 5px rgb(134, 0, 183);
+   
+    background: rgb(224, 220, 228);
+    
+  }
+
+  .nome-do-usuario{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  
