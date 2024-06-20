@@ -23,8 +23,9 @@ export class FooterComponent implements OnInit {
   registerMsgComp() {
     
     // Verificação dos campos obrigatórios
-    if (!this.msg) {
+    if (!this.msg) { 
       console.error('Todos os campos são obrigatórios.');
+      alert("é obrigatorio ao menos uma palavra no campo mensagem");
       return;
     }
 

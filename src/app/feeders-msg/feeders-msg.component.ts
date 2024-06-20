@@ -1,4 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
+import { AuthService } from '../auth.service';
 import { MensagensService } from '../mensagens.service';
 
 
@@ -7,7 +8,13 @@ interface Message {
   msg: string;
   like: number;
   deslike:number
-  author: string;
+  autor: string;
+}
+
+interface users{
+  
+  username:string;
+
 }
 
 
@@ -24,35 +31,39 @@ export class FeedersMsgComponent implements OnInit  {
  
 
   messages:Message[] = [];
+  usersLogados:users[]=[];
   autorDaMensagem:any;
   currentPage = 1;
   itemsPerPage = 5;
   totalPages=0;
  
+ 
   expandedMessages: boolean[] = [];
 
-  constructor(private listMSG:MensagensService){}
+  constructor(private listMSG:MensagensService, private listUsers:AuthService){}
 
   ngOnInit(): void {
-    this.loadMSG()
+    this.loadMSG();
+    this.loadUsers();
   }
+
 
   loadMSG() {
 
-    console.log('Recuperando feedbacks do serviço...');
+    console.log('Recuperando mensgens dos usuarios...');
 
     this.listMSG.getAllmessage().subscribe(data => {
         
       this.messages = data;
-      this.totalPages = Math.ceil(this.messages.length/this.itemsPerPage);
-      this.expandedMessages = new Array(this.messages.length).fill(false);
+      this.totalPages = Math.ceil(this.messages.length/this.itemsPerPage); // usado para implementar o valor total de paginas para paginação
+      this.expandedMessages = new Array(this.messages.length).fill(false); // usado para implementar a expanção do texto da mensagem
       },     
       error => {
         console.error('Erro ao recuperar feedbacks:', error);
       });
      this.messages.forEach(
       item => {
-          this.autorDaMensagem=item.author;
+          this.autorDaMensagem=item.autor;
       }      
      )
      console.log(this.autorDaMensagem);
@@ -90,6 +101,16 @@ export class FeedersMsgComponent implements OnInit  {
     return (this.currentPage - 1) * this.itemsPerPage + paginatedIndex;
   }
 
+
+  // carregar usuario para lista-los na lista de usuarios logados na reda
+
+  loadUsers(){
+   
+      this.listUsers.getAllUsers().subscribe(users =>{
+
+        this.usersLogados = users; // todos os usuarios vão ser armazenado no array usersLogados
+      })
+  }
 
 
 
