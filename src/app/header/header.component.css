@@ -1,0 +1,41 @@
+/* Estilos gerais */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+  }
+
+  /* CSS para ocultar a lista de usuários e mostrar o botão hambúrguer quando a largura for menor que 700px */
+@media (max-width: 700px) {
+    .menu-icon {
+      display: block;
+    }
+  
+    .user-logados {
+      display: none;
+    }
+  
+    .user-logados.expanded {
+      display: block !important;
+    }
+  }
+  
+  /* CSS para exibir a lista de usuários e ocultar o botão hambúrguer quando a largura for maior que 700px */
+  @media (min-width: 701px) {
+    .user-logados {
+      display: block;
+    }
+  
+    .menu-icon {
+      display: none;
+    }
+  }
+  
+  .content-wrapper {
+    display: flex;
+  }
+  
+  .message-area {
+    flex-grow: 1;
+  }

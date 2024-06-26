@@ -1,8 +1,18 @@
 <div>
-  <app-header></app-header>
   
-  <router-outlet></router-outlet>
+        <div>
+          <app-header (toggleMenu)="isMenuExpanded = !isMenuExpanded"></app-header>
+        </div>
+      
+        <div class="content-wrapper">
+            <app-user-list [isMenuExpanded]="isMenuExpanded" ></app-user-list>
+          <div class="message-area">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
 
-  <app-footer></app-footer>
+        <div>
+        <app-footer></app-footer>
+      </div>
 
 </div>
