@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "footer", component: FooterComponent },
   
   { // aqui temos a implementação de uma rota com lazy load,
-    path: "private-room",// nome da rota
+    path: "private-room-module",// nome da rota
     loadChildren: () => import('./msg-private-room/msg-private-room.module')
       .then(module => module.MsgPrivateRoomModule)
   }

@@ -1,0 +1,31 @@
+.content-wrapper {
+    display: flex;
+  }
+  
+  .message-area {
+    flex-grow: 1;
+  }
+
+
+  /* Estilos gerais */
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 24px;
+}
+
+.user-logados.expanded {
+  display: block !important;
+}
+
+/* CSS para ocultar a lista de usuários quando a largura for menor que 700px */
+@media (max-width: 700px) {
+  .user-logados {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}

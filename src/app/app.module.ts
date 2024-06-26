@@ -11,6 +11,8 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import { HttpClientModule } from '@angular/common/http';// Importação do HttpClientModule
 import { MsgSelectTypeMessageModule } from './msg-select-type-message/msg-select-type-message.module';
 import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room/msg-private-room.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { CommonModule } from '@angular/common';
 //import { MsgPrivateRoomModule } from './msg-private-room/msg-private-room.module';
 
 
@@ -22,6 +24,7 @@ import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room/msg
     FooterComponent,
     LoginComponent,
     RegisterUserComponent,
+    UserListComponent,
     
   ],
   imports: [
@@ -30,6 +33,7 @@ import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room/msg
     FormsModule,
     HttpClientModule,
     MsgSelectTypeMessageModule,
+    CommonModule
     //MsgPrivateRoomModule  como estamos usango lazy loadin pra esse modulo não precisamos importa-lo  aqui
 
   ],

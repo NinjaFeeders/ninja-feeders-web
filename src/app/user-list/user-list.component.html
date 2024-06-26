@@ -1,0 +1,16 @@
+<!-- barra lateral  para exibição do menbros da rede que estaão conectados-->
+
+<aside class="user-logados   overflow-scroll  col"  [ngClass]="{'expanded': isMenuExpanded}">
+  
+
+
+    <div class=" border-bottom text-center ">
+        <h4 class="nome-do-usuario">Membros </h4>
+    </div>
+    <div *ngFor="let user of usersLogados" class=" row  m-1 ">
+       <div class=" d-grid gap-2 ">
+        <button type="submit" class="p-2 btn btn-dark  "  (click)="navigateToPrivatePage(user.username) "> {{user.username}}</button>
+    </div>
+    </div>
+</aside>
+<!-- fim barra lateral  para exibição do menbros da rede que estaão conectados-->

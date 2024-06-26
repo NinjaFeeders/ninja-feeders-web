@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import{HttpClient}from '@angular/common/http';
 import{Router}from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';  // implementar observable para emitir e monitorar mudanças no estado de authenticação e no nome de usuario
 import { tap } from 'rxjs/operators';
 
 
@@ -13,9 +13,30 @@ export class AuthService {
   private tokenKey = 'authToken';
   private usernameKey = 'authUsername';
 
+  // implementar observable para emitir e monitorar mudanças no estado de authenticação e no nome de usuario
+  private isAuthenticatedSubject: BehaviorSubject<boolean>;
+  private usernameSubject: BehaviorSubject<string>;
 
 
-  constructor(private http:HttpClient,private router:Router) { }
+  constructor(private http:HttpClient,private router:Router) { 
+    const token = localStorage.getItem(this.tokenKey);
+    const username = localStorage.getItem(this.usernameKey);
+    this.isAuthenticatedSubject = new BehaviorSubject<boolean>(!!token);
+    this.usernameSubject = new BehaviorSubject<string>(username);
+
+  }
+
+  get isAuthenticated$():Observable<boolean> {
+    // Implemente a lógica para verificar se o usuário está autenticado
+    // Você pode usar localStorage, sessionStorage ou outros métodos de armazenamento para isso
+    //return !!localStorage.getItem(this.tokenKey);
+    return this.isAuthenticatedSubject.asObservable();
+  }
+
+  get username$():Observable<string>{
+    //return localStorage.getItem(this.usernameKey);
+    return this.usernameSubject.asObservable();
+  }
 
   register(nome: string,username:string, password: string) { // registrar usuario
 
@@ -30,6 +51,9 @@ export class AuthService {
         next: (res) => {
           this.setToken(res.token);
           this.setUsername(res.userLogin); // Armazena o nome de usuário no localStorage
+
+          this.isAuthenticatedSubject.next(true);
+          this.usernameSubject.next(res.userLogin);
         },
         error: (error) => {
           // Tratar erro, se necessário
@@ -63,19 +87,22 @@ export class AuthService {
     
   }
 
-  getUsername():string{
+  
+  getUsername(): string {
     return localStorage.getItem(this.usernameKey);
   }
 
+  
+
   isAuthenticated(): boolean {
-    // Implemente a lógica para verificar se o usuário está autenticado
-    // Você pode usar localStorage, sessionStorage ou outros métodos de armazenamento para isso
     return !!localStorage.getItem(this.tokenKey);
   }
 
   logout() { //fazer logout, encerrar sessão
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.usernameKey);
+    this.isAuthenticatedSubject.next(false);
+    this.usernameSubject.next(null);
     this.router.navigate([''])
   }
 }

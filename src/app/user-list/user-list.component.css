@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+/* Estilos gerais */
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 24px;
+  
+}
+
+.nome-do-usuario{
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  margin-top: 6%;
+
+}
+
+.select-user{
+  border-radius: %;
+}
+
+.user-logados {
+  min-width: 15rem;  /* A largura máxima será 25% da largura da página */
+  z-index: 1; 
+  float: left;
+  padding: 1%;
+ 
+  height: 150vh;
+}
+
+.user-logados.expanded {
+  display: block !important;
+}
+
+/* estilo para dimensionar a coluna da lista de usuario comforme a largura da pagina*/
+
+@media (min-width:700px) {
+  .user-logados {
+    min-width: 10rem;  /* A largura máxima será 25% da largura da página */
+    padding-left: 15px;
+  }
+
+  .nome-do-usuario{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    
+  
+  }
+}
+
+@media (min-width:1200px) {
+  .user-logados {
+    min-width: 18rem;  /* A largura máxima será 25% da largura da página */
+    padding-left: 15px;
+  }
+}
+
+
+/* CSS para ocultar a lista de usuários quando a largura for menor que 700px */
+@media (max-width: 700px) {
+  .user-logados {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+.content-wrapper {
+  display: flex;
+}
+
+.message-area {
+  flex-grow: 1;
+}
+
+

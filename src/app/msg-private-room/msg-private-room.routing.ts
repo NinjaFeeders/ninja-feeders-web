@@ -3,7 +3,7 @@ import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room.com
 
 const routes: Routes = [
   {  
-    path:"",component:MsgPrivateRoomComponent
+    path:":username",component:MsgPrivateRoomComponent
   },
 ];
 

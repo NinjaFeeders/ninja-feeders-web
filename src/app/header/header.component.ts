@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'app-header',
@@ -7,14 +10,22 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @Output() toggleMenu: EventEmitter<void> = new EventEmitter<void>();
+
   username:string;
+  
   isLoggedIn: boolean;
-  constructor(private authService:AuthService) { }
+
+ private authSubscription:Subscription;
+ private usernameSubscription:Subscription;
+
+  constructor(private authService:AuthService,private route:ActivatedRoute) { }
 
   ngOnInit() {
     // Recupera o nome de usuário do localStorage
-    this.username = this.authService.getUsername();
-    this.isLoggedIn = this.authService.isAuthenticated(); // se estiver autenticado o valor de isloggedin sera true, se não sera false
+
+    this.authSubscription = this.authService.isAuthenticated$.subscribe(isAuthenticated=>{this.isLoggedIn = isAuthenticated});
+    this.usernameSubscription =this.authService.username$.subscribe(userlogado =>{this.username = userlogado});
 
   }
 
@@ -24,6 +35,14 @@ export class HeaderComponent implements OnInit {
     this.username = null;
   }
 
-  
+  toggleMenuClicked() {
+    this.toggleMenu.emit();
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
+    this.usernameSubscription.unsubscribe();
+  }
+ 
     
 }
