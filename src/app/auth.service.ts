@@ -101,8 +101,8 @@ export class AuthService {
   logout() { //fazer logout, encerrar sessão
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.usernameKey);
-    this.isAuthenticatedSubject.next(false);
-    this.usernameSubject.next(null);
+    this.isAuthenticatedSubject.next(false);  // essa linha ajuda a evitar um despejo de memoria evitando bug no metodo de logout
+    this.usernameSubject.next(null); // essa linha ajuda a evitar um despejo de memoria evitando bug no metodo de logout
     this.router.navigate([''])
   }
 }

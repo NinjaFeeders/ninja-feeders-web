@@ -24,7 +24,11 @@ export class UserListComponent implements OnInit {
 
   usersLogados:Users[]=[];
   userSelect:any;
+  isConectedAsFriend:boolean=false;
+  statusConectionUsers:string="Conectar";
+  colorButton:string="bg-warning"
 
+  
 
 
   constructor( private listUsers:AuthService, private router:Router){}
@@ -48,6 +52,22 @@ export class UserListComponent implements OnInit {
  navigateToPrivatePage(nome:string): void {
   this.router.navigate(['private-room-module',nome]);
   console.log("metodo navigateToPrivatePage() ", nome);
+
+}
+
+// função que fara a conexão entre os usuario logado e o usuario selecionado pelo usuario logado
+
+conectarAoUser(user:string){
+  if(this.isConectedAsFriend == false){
+      this.isConectedAsFriend = true;
+      this.statusConectionUsers="Conectar";
+      this.colorButton ="bg-danger"
+  }else if(this.isConectedAsFriend == true){
+    this.isConectedAsFriend = false;
+    this.statusConectionUsers="Desconectar"
+    this.colorButton ="bg-success"
+  }
+
 
 }
   

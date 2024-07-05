@@ -19,9 +19,11 @@
 
 }
 
-.select-user{
-  border-radius: %;
+
+.clicavel{
+  cursor: pointer;
 }
+
 
 .user-logados {
   min-width: 15rem;  /* A largura máxima será 25% da largura da página */

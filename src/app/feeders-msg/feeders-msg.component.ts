@@ -5,6 +5,7 @@ import { MensagensService } from '../mensagens.service';
 
 interface Message {
   id:number;
+  titulomsg:string;
   msg: string;
   like: number;
   deslike:number
@@ -14,6 +15,7 @@ interface Message {
 interface users{
   
   username:string;
+  id:number;
 
 }
 
@@ -36,6 +38,15 @@ export class FeedersMsgComponent implements OnInit  {
   currentPage = 1;
   itemsPerPage = 5;
   totalPages=0;
+
+ 
+  buttonLike:boolean = false;
+  btnLike:string="";
+  btnDeslike:string="";
+  autorMsgLikeDislike:string ="";
+  idStyleMsg:number;
+  isLike:boolean;
+  
  
  
   expandedMessages: boolean[] = [];
@@ -55,6 +66,7 @@ export class FeedersMsgComponent implements OnInit  {
     this.listMSG.getAllmessage().subscribe(data => {
         
       this.messages = data;
+   
       this.totalPages = Math.ceil(this.messages.length/this.itemsPerPage); // usado para implementar o valor total de paginas para paginação
       this.expandedMessages = new Array(this.messages.length).fill(false); // usado para implementar a expanção do texto da mensagem
       },     
@@ -64,6 +76,9 @@ export class FeedersMsgComponent implements OnInit  {
      this.messages.forEach(
       item => {
           this.autorDaMensagem=item.autor;
+         
+         
+          
       }      
      )
      console.log(this.autorDaMensagem);
@@ -113,5 +128,48 @@ export class FeedersMsgComponent implements OnInit  {
   }
 
 
+  // funcionalidade de dar like(goste) e dislike(não gostei)
 
+  like(idmsg:number){ // toogle like deslike
+
+    this.isLike=true;
+    this.listMSG.likeMsg(idmsg,this.isLike).subscribe(
+      response => {
+          console.log('Response from server:', response);
+          console.log(`Response message: ${response.message}`);
+          // atualizar localmente o controlador de likes
+          const message = this.messages.find(msg =>msg.id == idmsg);
+          if(message){
+            message.like ++
+          }
+          this.loadMSG(); // chamando aqui o metodo que carraga as msg, ele recarrega as msg e atualiza as informações
+      },
+      error => {
+          console.error('Erro ao enviar like:', error);
+      }
+  );
+  console.log(`id da msg chegou no .ts: ${idmsg}`);
+    
+      
+   
+  }
+
+  deslike(idmsg:number){
+    this.isLike = false;
+    this.listMSG.likeMsg(idmsg,this.isLike).subscribe(
+      response =>{
+        console.log(`Response from server: ${response.message}`);
+        // Atualizar localmente o contador de deslikes
+
+        const message = this.messages.find(msg => msg.id == idmsg);
+        if(message){
+          message.deslike++;
+        }
+        this.loadMSG();
+
+      },error => {
+        console.error('Erro ao enviar deslike:', error);
+    }
+    )
+  }
 }

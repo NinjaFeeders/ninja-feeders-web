@@ -2,7 +2,7 @@
 
      <section class="wrapper d-flex flex-column min-vh-10   m-1 p-3">
         <div class=" border-bottom text-center gap ">
-            <h4 class="nome-do-usuario">Mensagens </h4>
+            <h4 class="nome-do-usuario">Mensagens Publicas </h4>
         </div>
         <div class=" wrapper flex-grow-1 ">
             <div class="d-flex flex-column pt-3">
@@ -13,36 +13,43 @@
                 <!-- Início da estrutura do comentário -->
                 <article class="m-2 border-top border-bottom p-3"
                     *ngFor="let message of paginatedMessages; let i = index">
+                   
                     <div class="d-flex flex-row justify-content-between">
                         <!-- Container da imagem de perfil, e tipo de mensagem -->
                         <div>
                             <img width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
                         </div>
-                        <div>
-                            <h3>{{message.autor}}</h3>
-
-                        </div>
+                       
+                       
                     </div>
+
                     <div class="card-body"> <!-- Container do autor da mensagem e mensagem em si -->
-                        <h5 class="card-title">{{ message.autor }}</h5>
-                        <p class="card-text" [ngClass]="{'collapsed': isExpanded(getMessageIndex(i))}"
+                        <h5 class="card-title m-1">{{ message.autor }}</h5> <!-- autor da msg-->
+                        <h4 class="m-1">titulo: {{message.titulomsg}}</h4>
+                       
+                        <p class="card-text fs-4 " [ngClass]="{'collapsed': isExpanded(getMessageIndex(i))}"
                             [style.max-height]="isExpanded(getMessageIndex(i)) ? 'none' : '4.5em'"
                             [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">{{ message.msg }}
                         </p>
-                        <a href="#" (click)="toggleExpand(getMessageIndex(i))" class="expand-toggle">
+                        <a href="#" (click)="toggleExpand(getMessageIndex(i))"  class="expand-toggle">
                             {{ isExpanded(getMessageIndex(i)) ? 'Contrair' : 'Expandir' }}</a>
+
                     </div>
-                    <div class="mt-1 d-flex justify-content-between w-100">
-                        <button class="btn btn-outline-secondary">Comentar</button>
-                        <div class="d-flex justify-content-around">
+                    <div class="mt-1 d-flex justify-content-end w-100">
+                        <div class="d-flex justify-content-around" 
+                       >
                             <div class="me-2">
-                                <button class="btn btn-outline-danger border-0">
-                                    <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" />
-                                </button>
+                                <button class="btn btn-outline-danger border-0" (click)="deslike(message.id)">
+                                    <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" /> 
+                                    {{message.deslikes}}
+                                </button>   
+                               
                             </div>
                             <div class="me-2">
-                                <button class="btn btn-outline-info border-0">
+                                <button class="btn btn-outline-info border-0 " (click)="like(message.id)">
+                                   
                                     <img width="50px" src="../../assets/like/gostar.png" />
+                                    {{message.likes}}
                                 </button>
                             </div>
                         </div>
@@ -62,15 +69,8 @@
                         [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
                 </div>
 
-
-
-
-
-
             </div>
         </div>
     </section>
-
-
 </main>
 

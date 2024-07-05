@@ -5,11 +5,15 @@
 
         <form class="col-8  p-3 text-center " (ngSubmit)="registerMsgComp()">
             <div class="form-floating  input-group w-100 ">
-                <textarea  class="form-control h-50 rounded-pill" type="text" placeholder="Mensagens" id="msg" name="msg" required 
-                  [(ngModel)]="msg" ></textarea>
-                <label for="msg" class="pt-4">Mensagens</label>
+                <textarea  class="form-control h-50 rounded-pill" type="text"  id="msg" name="msg" required 
+                  [(ngModel)]="msg"  maxlength="280" (input)="contCaractereTextArea()"></textarea><!-- o maxlingth = "280 limita a text ares pra permitir que seja digitado apenos 280 caracteres"-->
+                <label for="msg" class="pt-4 text-muted fs-4">Mensagens: max caracteres 280, titulo automatico com os primeiros 72 caracteres</label>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+           
+            <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary mt-3 w-25">Enviar</button>
+            <small  class="text-muted fs-6 "> 280/ {{contagenCaractere}}</small> <!-- mostra a contagem dos caracteres-->
+        </div>
         </form>
 
     </div>

@@ -9,7 +9,16 @@
     </div>
     <div *ngFor="let user of usersLogados" class=" row  m-1 ">
        <div class=" d-grid gap-2 ">
-        <button type="submit" class="p-2 btn btn-dark  "  (click)="navigateToPrivatePage(user.username) "> {{user.username}}</button>
+        <!-- <button type="submit" class="p-2 btn btn-dark  "  (click)="navigateToPrivatePage(user.username) "> {{user.username}}</button> -->
+        <div class="dropdown d-grid gap-2">
+            <button type="submit" class="p-2 btn btn-dark  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{user.username}}
+            </button>
+            <ul class="dropdown-menu border border-3 border-secundary w-100 p-2 bg-black text-center">
+              <li><a class="dropdown-item clicavel p-2 btn w-100 text-center bg-warning  mb-1 " (click)="navigateToPrivatePage(user.username) ">Conversa privado</a></li>
+              <li><a class="dropdown-item clicavel p-2 btn w-100 text-center {{colorButton}}"  (click)="conectarAoUser(user.username)">{{statusConectionUsers}} {{user.username}}</a></li>
+            </ul>
+          </div>
     </div>
     </div>
 </aside>

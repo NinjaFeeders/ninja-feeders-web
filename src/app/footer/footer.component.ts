@@ -15,6 +15,9 @@ export class FooterComponent implements OnInit {
   deslikes:number=0;
   autor:string="";
 
+  // variavel para fazer a contagem de caracteres da entrada de dados na text area
+  contagenCaractere:number=0;
+
   constructor(private mensagensService:MensagensService,private autorMSG:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -33,7 +36,16 @@ export class FooterComponent implements OnInit {
 
     this.autor = this.autorMSG.getUsername();
     console.log("nome de usuario chegou em footer",this.autor);
-  this.mensagensService.registerMsgService(this.msg,this.autor).subscribe(
+
+    let titulomsg = this.msg.split('\n')[0]; // separamos a  primeira linha da msg para separar o titulo da msg
+    if(titulomsg.length > 72){// subtrair os primeiros 72 caracteres da primeira linha da msg
+      titulomsg = titulomsg.substring(0,72) +'...';
+    }
+
+    const mensageMsg = this.msg // mensagem completa
+      console.log(`titulo = ${titulomsg} \n mensagem = ${mensageMsg} \n autor = ${this.autor}`);
+  this.mensagensService.registerMsgService(titulomsg,mensageMsg,this.autor).subscribe(
+    
     response => {
       console.log('Mensagem registrado com sucesso', response);
       this.router.navigate(['']); // Navega para a tela de login após o registro
@@ -43,6 +55,11 @@ export class FooterComponent implements OnInit {
       console.error('Erro ao registrar usuário', error);
     }
   );
+}
+
+
+contCaractereTextArea(){
+  this.contagenCaractere = this.msg.length;
 }
 
 }

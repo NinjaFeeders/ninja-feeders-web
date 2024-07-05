@@ -25,7 +25,7 @@ const path = require('path'); // Módulo para lidar com caminhos de arquivos e d
 //const connection = require('./database'); //Configuração da conexão com o banco de dados MySQL.
 const https = require('https');
 const app = express();
-const port =8000;
+const port = 8000;
 
 const { connectToDatabase, disconnectFromDatabase } = require('./database'); // importa a conexão e desconexão com o DB
 
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
   next();
 });
 
- // configure CORS
+// configure CORS
 //  const corsOptions = {
 //    origin: ['https://jairocesar.pessoal.ws/'],
 //   optionsSuccessStatus: 200
@@ -61,20 +61,20 @@ app.use(express.json());
 app.post('/usersregister', async (req, res) => {
 
   const dbconnection = connectToDatabase();
-  const { nome,username, password } = req.body;
+  const { nome, username, password } = req.body;
 
-  if (!nome || !username || !password ) {
+  if (!nome || !username || !password) {
     return res.status(400).json({ message: 'Todos os campos são obrigatórios.' }); // valida a obrigatoriedade de dados
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const sqlInsert = 'INSERT INTO `users` (nome,username,password) VALUES (?, ?,?)';
-  dbconnection.query(sqlInsert, [nome,username, hashedPassword], (error, result) => {
+  dbconnection.query(sqlInsert, [nome, username, hashedPassword], (error, result) => {
     if (error) {
       console.error('Erro ao registrar usuário:', error);
       return res.status(500).json({ message: 'Erro ao registrar usuário.' });
-    }else{
+    } else {
       res.status(201).json({ message: 'Usuário registrado com sucesso.' });
     }
     disconnectFromDatabase(dbconnection);
@@ -85,22 +85,22 @@ app.post('/usersregister', async (req, res) => {
 
 app.get('/users', (req, res) => {
   const dbconnection = connectToDatabase(); // abre a conexão com o DB
-const sql = 'SELECT * FROM `users`';
+  const sql = 'SELECT * FROM `users`';
 
-dbconnection.query(sql, (err, results) => {
-  console.log(sql);
-  if (err) {
-    console.error('Erro ao recuperar mensagens:', err);
-    res.status(500).json({ error: 'Erro ao recuperar mensgens.' });
-    return;
-  }else{
-    console.log("requisição Get mensagens entregue ao destino");
-  }
+  dbconnection.query(sql, (err, results) => {
+    console.log(sql);
+    if (err) {
+      console.error('Erro ao recuperar mensagens:', err);
+      res.status(500).json({ error: 'Erro ao recuperar mensgens.' });
+      return;
+    } else {
+      console.log("requisição Get mensagens entregue ao destino");
+    }
 
- 
-  res.status(200).json(results);
-  disconnectFromDatabase(dbconnection); // fecha a conexão com o dB
-});
+
+    res.status(200).json(results);
+    disconnectFromDatabase(dbconnection); // fecha a conexão com o dB
+  });
 
 });
 
@@ -154,16 +154,16 @@ app.post('/login', (req, res) => {
     }
 
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
-    console.log("retorno do token vindo pelo servidor",token);
+    console.log("retorno do token vindo pelo servidor", token);
     console.log("retorno do nome de usuario vindo do servidor", userLogin);
 
-    res.json({ token,userLogin });
+    res.json({ token, userLogin });
   });
 
   disconnectFromDatabase(dbconnection);
- });
+});
 
- 
+
 
 
 
@@ -173,58 +173,58 @@ app.post('/login', (req, res) => {
 app.post('/mensgens', (req, res) => {
   console.log("informações de cadastro chegando no servidor com sucesso");
   const dbconnection = connectToDatabase();
-//likes, deslikes, autor
-//|| !likes || !deslikes || !autor
-  const { msg , autor} = req.body;
+  //likes, deslikes, autor
+  //|| !likes || !deslikes || !autor
+  const {msg,autor,tituloMsg } = req.body;
   console.log(autor, "chegou na rota de msg do servidor");
 
-  if (!msg || !autor ) { // verifica se todos os valores foram fornecido, se não: retorna uma msg reclamando para prencher todos os campos 
+  if (!tituloMsg || !msg || !autor) { // verifica se todos os valores foram fornecido, se não: retorna uma msg reclamando para prencher todos os campos 
     res.status(400).json({ error: 'Todos os campos devem ser fornecidos.' });
     return;
   }
 
-  const sql = 'INSERT INTO `mensgens` (msg,autor) VALUES (?,?)';
-  dbconnection.query(sql, [msg,autor], (err, results) => {
+  const sql = 'INSERT INTO `mensgens` (msg,autor,titulomsg) VALUES (?,?,?)';
+  dbconnection.query(sql, [msg,autor,tituloMsg  ], (err, results) => {
     if (err) {
       console.error('Erro ao inserir feedback:', err);
       res.status(500).json({ error: 'Erro ao inserir feedback.' });
       return;
-    }else{
-    res.status(201).json({ message: 'mensgem registrada com sucesso!',autor });
+    } else {
+      res.status(201).json({ message: 'mensgem registrada com sucesso!', autor });
     }
     disconnectFromDatabase(dbconnection);
   });
 
-      
+
 });
 
 
- // Rota para obter todos as mensgens
-    app.get('/mensgens', (req, res) => {
-      const dbconnection = connectToDatabase(); // abre a conexão com o DB
-    const sql = 'SELECT * FROM `mensgens`';
-   
-    dbconnection.query(sql, (err, results) => {
-      console.log(sql);
-      if (err) {
-        console.error('Erro ao recuperar mensagens:', err);
-        res.status(500).json({ error: 'Erro ao recuperar mensgens.' });
-        return;
-      }else{
-        console.log("requisição Get mensagens entregue ao destino");
-      }
+// Rota para obter todos as mensgens
+app.get('/mensgens', (req, res) => {
+  const dbconnection = connectToDatabase(); // abre a conexão com o DB
+  const sql = 'SELECT * FROM `mensgens`';
 
-     
-      res.status(200).json(results);
-      disconnectFromDatabase(dbconnection); // fecha a conexão com o dB
-    });
-    
+  dbconnection.query(sql, (err, results) => {
+    console.log(sql);
+    if (err) {
+      console.error('Erro ao recuperar mensagens:', err);
+      res.status(500).json({ error: 'Erro ao recuperar mensgens.' });
+      return;
+    } else {
+      console.log("requisição Get mensagens entregue ao destino");
+    }
+
+
+    res.status(200).json(results);
+    disconnectFromDatabase(dbconnection); // fecha a conexão com o dB
   });
 
-  
+});
 
 
- // Rota para deletar um feedback
+
+
+// Rota para deletar um feedback
 // app.delete('/feedback/:id', (req, res) => {
 //   const dbconnection = connectToDatabase();
 //   const feedbackId = req.params.id;
@@ -242,7 +242,55 @@ app.post('/mensgens', (req, res) => {
 //   });
 // });
 
-  
+
+// Rota para registrar os likes no DB OK
+app.put('/likes', (req, res) => {
+  console.log("like chegando no servidor com sucesso");
+  const dbconnection = connectToDatabase();
+
+
+  const { idmsg, isLike } = req.body;
+  console.log(idmsg, "id da msg chegou na rota de like do servidor");
+
+
+  if (!idmsg) {
+    return res.status(400).json({ error: 'ID da mensagem não fornecido.' });
+  }
+
+  if (isLike == true) { // se atender essa condição sera incrementado um like
+
+    // Corrigir a sintaxe SQL para atualização de likes
+    const sql = 'UPDATE `mensgens` SET `likes` = `likes` + 1 WHERE id = ?';
+
+    dbconnection.query(sql, [idmsg], (err, results) => {
+      if (err) {
+        console.error('Erro ao inserir like:', err);
+        res.status(500).json({ error: 'Erro ao inserir like.' });
+        return;
+      } else {
+        res.status(201).json({ message: `Like contabilizado e somado com sucesso para a msg de id ${idmsg}` });
+      }
+
+    });
+  }else if(isLike == false){ // se atender essa condição sera incrementado um deslike
+
+     // Corrigir a sintaxe SQL para atualização de likes
+     const sql = 'UPDATE `mensgens` SET `deslikes` = `deslikes` + 1 WHERE id = ?';
+
+     dbconnection.query(sql, [idmsg], (err, results) => {
+       if (err) {
+         console.error('Erro ao inserir like:', err);
+         res.status(500).json({ error: 'Erro ao inserir like.' });
+         return;
+       } else {
+         res.status(201).json({ message: `Like contabilizado e somado com sucesso para a msg de id ${idmsg}` });
+       }
+ 
+     });
+  }
+  disconnectFromDatabase(dbconnection);
+
+});
 
 
 // Rota de exemplo
@@ -252,11 +300,11 @@ app.get('/', (req, res) => {
 
 
 // Middleware para servir arquivos estáticos da aplicação Angular
-app.use(express.static(path.join(__dirname,'angular')));
+app.use(express.static(path.join(__dirname, 'angular')));
 
 // Rota padrão que redireciona para o index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname,'angular', 'index.html'));
+  res.sendFile(path.join(__dirname, 'angular', 'index.html'));
 });
 
 
