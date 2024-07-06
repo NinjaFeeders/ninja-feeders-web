@@ -175,7 +175,7 @@ app.post('/mensgens', (req, res) => {
   const dbconnection = connectToDatabase();
   //likes, deslikes, autor
   //|| !likes || !deslikes || !autor
-  const {msg,autor,tituloMsg } = req.body;
+  const { msg, autor, tituloMsg } = req.body;
   console.log(autor, "chegou na rota de msg do servidor");
 
   if (!tituloMsg || !msg || !autor) { // verifica se todos os valores foram fornecido, se não: retorna uma msg reclamando para prencher todos os campos 
@@ -184,7 +184,7 @@ app.post('/mensgens', (req, res) => {
   }
 
   const sql = 'INSERT INTO `mensgens` (msg,autor,titulomsg) VALUES (?,?,?)';
-  dbconnection.query(sql, [msg,autor,tituloMsg  ], (err, results) => {
+  dbconnection.query(sql, [msg, autor, tituloMsg], (err, results) => {
     if (err) {
       console.error('Erro ao inserir feedback:', err);
       res.status(500).json({ error: 'Erro ao inserir feedback.' });
@@ -243,54 +243,144 @@ app.get('/mensgens', (req, res) => {
 // });
 
 
-// Rota para registrar os likes no DB OK
+// Rota para registrar os likes e deslikes no DB OK
+// app.put('/likes', (req, res) => {
+//   console.log("like chegando no servidor com sucesso");
+//   const { idmsg, isLike } = req.body;
+
+//   console.log(idmsg, "id da msg chegou na rota de like do servidor");
+
+//   const dbconnection = connectToDatabase();
+
+//   // verificar o campo like no DB
+//   const checkLike = 'SELECT * FROM mensgens WHERE id = ?';
+//   dbconnection.query(checkLike, [idmsg], (checkLikeErr, checkLikeResult) => {
+//     if (checkLikeErr) {
+//       console.error('Erro ao verificar o registro:', checkLikeErr);
+//       res.status(500).json({ error: 'Erro ao verificar o registro' });
+//     }
+//     // a partir daqui o existe like registrado e agora vamos apenas atualizar 
+//     // Registro encontrado, obter os valores atuais de likes e deslikes
+//     const currentLikes = checkLikeResult[0].likes;
+
+//     if (isLike == true) { // se atender essa condição sera incrementado um like
+//       // Corrigir a sintaxe SQL para atualização de likes
+
+//       if (currentLikes === null || currentLikes === 0) { // inicia currentLike ===null
+//         const insertLike = 'INSERT INTO mensgens(likes)VALUE(?) WHERE id = ?';
+
+//         dbconnection.query(insertLike, [1, idmsg], (err, res) => {
+//           if (err) {
+//             console.error('Erro ao inserir like:', err);
+//             res.status(500).json({ error: 'Erro ao inserir like.' });
+//             return;
+//           } else {
+//             res.status(201).json({ message: `Like contabilizado e somado com sucesso para a msg de id ${idmsg}` });
+//           }
+
+//         });
+
+//       } // fim currentLike === null
+
+
+
+
+//     } // fim do islike == true
+//     disconnectFromDatabase(dbconnection);
+//   });
+// });
+
 app.put('/likes', (req, res) => {
-  console.log("like chegando no servidor com sucesso");
+  const { idmsg, isLike } = req.body;
+
   const dbconnection = connectToDatabase();
 
+  // Verificar se a mensagem com o id especificado existe na tabela mensgens
+  const checkMsgQuery = 'SELECT * FROM mensgens WHERE id = ?';
+  dbconnection.query(checkMsgQuery, [idmsg], (checkMsgErr, checkMsgResult) => {
+    if (checkMsgErr) {
+      console.error('Erro ao verificar a mensagem:', checkMsgErr);
+      res.status(500).json({ error: 'Erro ao verificar a mensagem' });
+      disconnectFromDatabase(dbconnection);
+      return;
+    } // verificaççao do registro da msg relacionado ao id OK
 
-  const { idmsg, isLike } = req.body;
-  console.log(idmsg, "id da msg chegou na rota de like do servidor");
+    // O CODIGO ABAIXO FAZ UMA VERIFICAÇÃO INTERESSANTE CASO NÃO HAJA UMA MSG REGISTRADA COM O ID INFORMADO, POREM É DIFICIL DESSE ID NÃO EXISTIR UMA VEZ QUE 
+    // O MESMO VEM DE UMA LISTAGEM DA MESMAS MENSAGENS QUE ESTAMOS CHECANDO
+    // if (checkMsgResult.length === 0) {
+    //   res.status(404).json({ error: 'Mensagem não encontrada' });
+    //   disconnectFromDatabase(dbconnection);
+    //   return;
+    // }
 
+    // Mensagem encontrada, verificar o valor atual de likes
+    const currentLikes = checkMsgResult[0].likes; // campo like relacionado ao id informado, armazenado na const cuureenlikes
+    console.log(`para o id ${idmsg} foi enconstrado ${currentLikes} likes`)
 
-  if (!idmsg) {
-    return res.status(400).json({ error: 'ID da mensagem não fornecido.' });
-  }
-
-  if (isLike == true) { // se atender essa condição sera incrementado um like
-
-    // Corrigir a sintaxe SQL para atualização de likes
-    const sql = 'UPDATE `mensgens` SET `likes` = `likes` + 1 WHERE id = ?';
-
-    dbconnection.query(sql, [idmsg], (err, results) => {
-      if (err) {
-        console.error('Erro ao inserir like:', err);
-        res.status(500).json({ error: 'Erro ao inserir like.' });
-        return;
-      } else {
-        res.status(201).json({ message: `Like contabilizado e somado com sucesso para a msg de id ${idmsg}` });
+    const currentDesLike = checkMsgResult[0].deslikes; // quantida de deslike recuperada no dB
+    console.log(`para i id ${idmsg} foi enconstrado ${currentDesLike} deslikes`)
+   
+   
+    if (isLike === true) { // inplementa os likes
+      // Se for um like, verificar se precisa inserir o primeiro like ou incrementar
+      if (currentLikes === null || currentLikes === 0) { // verifica se existe algum valor no campo like
+        // Se likes for null ou 0, inserir o primeiro like
+        const sql_insertLike = 'UPDATE mensgens SET likes = 1 WHERE id = ?';
+        dbconnection.query(sql_insertLike, [idmsg], (insertErr, insertResult) => {
+          if (insertErr) {
+            console.error('Erro ao inserir o primeiro like:', insertErr);
+            res.status(500).json({ error: 'Erro ao inserir o primeiro like' });
+          } else {
+            res.status(201).json({ message: `Primeiro like registrado com sucesso para a mensagem de id ${idmsg}` });
+          }
+          disconnectFromDatabase(dbconnection);
+        });
+      } else { // Se já existe likes, incrementar o valor atual
+       
+        const sql_addmaislike = 'UPDATE mensgens SET likes = likes + 1 WHERE id = ?';
+        dbconnection.query(sql_addmaislike, [idmsg], (incrementErr, incrementResult) => {
+          if (incrementErr) {
+            console.error('Erro ao incrementar o like:', incrementErr);
+            res.status(500).json({ error: 'Erro ao incrementar o like' });
+          } else {
+            res.status(200).json({ message: `Like incrementado com sucesso para a mensagem de id ${idmsg}` });
+          }
+          disconnectFromDatabase(dbconnection);
+        });
       }
+    } else if(isLike === false) { // aqui começa a implementação do deslike
+     
 
-    });
-  }else if(isLike == false){ // se atender essa condição sera incrementado um deslike
-
-     // Corrigir a sintaxe SQL para atualização de likes
-     const sql = 'UPDATE `mensgens` SET `deslikes` = `deslikes` + 1 WHERE id = ?';
-
-     dbconnection.query(sql, [idmsg], (err, results) => {
-       if (err) {
-         console.error('Erro ao inserir like:', err);
-         res.status(500).json({ error: 'Erro ao inserir like.' });
-         return;
-       } else {
-         res.status(201).json({ message: `Like contabilizado e somado com sucesso para a msg de id ${idmsg}` });
-       }
- 
-     });
-  }
-  disconnectFromDatabase(dbconnection);
-
+      if (currentDesLike === null || currentDesLike === 0) { // verifica se existe algum valor no campo like
+        // Se likes for null ou 0, inserir o primeiro like
+        const sql_insertDeslike = 'UPDATE mensgens SET  deslikes= 1 WHERE id = ?';
+        dbconnection.query(sql_insertDeslike, [idmsg], (insertErr) => {
+          if (insertErr) {
+            console.error('Erro ao inserir o primeiro deslike:', insertErr);
+            res.status(500).json({ error: 'Erro ao inserir o primeiro deslike' });
+          } else {
+            res.status(201).json({ message: `Primeiro deslike registrado com sucesso para a mensagem de id ${idmsg}` });
+          }
+          disconnectFromDatabase(dbconnection);
+        });
+        console.log(`codigo comentado`);
+      }else{
+        const sql_addDeslikes = 'UPDATE mensgens SET deslikes = deslikes + 1 WHERE id = ?';
+        dbconnection.query(sql_addDeslikes, [idmsg], (incrementErr, incrementResult) => {
+          if (incrementErr) {
+            console.error('Erro ao incrementar o deslike:', incrementErr);
+            res.status(500).json({ error: 'Erro ao incrementar o deslike' });
+          } else {
+            res.status(200).json({ message: `desLike incrementado com sucesso para a mensagem de id ${idmsg}` });
+          }
+          disconnectFromDatabase(dbconnection);
+        });
+      }
+     
+    }
+  });
 });
+
 
 
 // Rota de exemplo

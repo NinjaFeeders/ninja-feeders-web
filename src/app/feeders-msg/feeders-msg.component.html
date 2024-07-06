@@ -1,6 +1,6 @@
 <main class="container-fluid p-0 " style="margin-bottom: 161px;">
 
-     <section class="wrapper d-flex flex-column min-vh-10   m-1 p-3">
+    <section class="wrapper d-flex flex-column min-vh-10   m-1 p-3">
         <div class=" border-bottom text-center gap ">
             <h4 class="nome-do-usuario">Mensagens Publicas </h4>
         </div>
@@ -13,41 +13,51 @@
                 <!-- Início da estrutura do comentário -->
                 <article class="m-2 border-top border-bottom p-3"
                     *ngFor="let message of paginatedMessages; let i = index">
-                   
+
                     <div class="d-flex flex-row justify-content-between">
                         <!-- Container da imagem de perfil, e tipo de mensagem -->
-                        <div>
-                            <img width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
+                        <div class="bg-info ps-3 pe-3 border border-2 border-dark rounded-circle     ">
+                            <img  class="mt-2 rounded-circle" width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
+                            <h6 class="card-title ms-2 mb-2 me-2 ">{{ message.autor }}</h6> <!-- autor da msg-->
                         </div>
-                       
-                       
+
+
                     </div>
 
-                    <div class="card-body"> <!-- Container do autor da mensagem e mensagem em si -->
-                        <h5 class="card-title m-1">{{ message.autor }}</h5> <!-- autor da msg-->
-                        <h4 class="m-1">titulo: {{message.titulomsg}}</h4>
+                    <div class="card-body"> <!-- Container do autor da mensagem titulo msg  e mensagem em si -->
                        
-                        <p class="card-text fs-4 " [ngClass]="{'collapsed': isExpanded(getMessageIndex(i))}"
-                            [style.max-height]="isExpanded(getMessageIndex(i)) ? 'none' : '4.5em'"
-                            [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">{{ message.msg }}
-                        </p>
-                        <a href="#" (click)="toggleExpand(getMessageIndex(i))"  class="expand-toggle">
-                            {{ isExpanded(getMessageIndex(i)) ? 'Contrair' : 'Expandir' }}</a>
+                        <h4 class="m-1 user-select-none" style="cursor: pointer;"
+                            (click)="toggleExpand(getMessageIndex(i))"> 
+                            titulo: {{message.titulomsg}}<!--titulo msg-->
+                        </h4>
 
+                        <div *ngIf="isExpanded(getMessageIndex(i))" >
+                            <p  class="card-text fs-4 " 
+                                [style.max-height]="isExpanded(getMessageIndex(i)) ? 'none' : '4.5em'"
+                                [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">
+                                {{ message.msg }}
+                            </p>
+                        </div>
+                        <!-- a tag small abaixo não é nescessario para o expandir e contrair funcionar , mais 
+                        sera usado para add um icone de seta para cima e seta para baixo-->
+                        <small type="button" (click)="toggleExpand(getMessageIndex(i))" class="expand-toggle" style="cursor: pointer;">
+                            <img *ngIf="!isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-baixo2.png" alt="Expandir" width="24" height="24">
+                            <img *ngIf="isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-cima2.png" alt="Contrair" width="24" height="24">
+                        </small>
                     </div>
                     <div class="mt-1 d-flex justify-content-end w-100">
-                        <div class="d-flex justify-content-around" 
-                       >
+                        <div class="d-flex justify-content-around">
+                            
                             <div class="me-2">
                                 <button class="btn btn-outline-danger border-0" (click)="deslike(message.id)">
-                                    <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" /> 
+                                    <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" />
                                     {{message.deslikes}}
-                                </button>   
-                               
+                                </button>
+
                             </div>
                             <div class="me-2">
                                 <button class="btn btn-outline-info border-0 " (click)="like(message.id)">
-                                   
+
                                     <img width="50px" src="../../assets/like/gostar.png" />
                                     {{message.likes}}
                                 </button>
@@ -73,4 +83,3 @@
         </div>
     </section>
 </main>
-
