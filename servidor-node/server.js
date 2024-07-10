@@ -28,6 +28,7 @@ const app = express();
 const port = 8000;
 
 const { connectToDatabase, disconnectFromDatabase } = require('./database'); // importa a conexão e desconexão com o DB
+const { stringify } = require('querystring');
 
 
 const SECRET_KEY = '1234'; // Coloque uma chave secreta segura aqui
@@ -149,15 +150,17 @@ app.post('/login', (req, res) => {
     const user = results[0]; // aqui tem o retorno da pesquisa do login, se a pesquisa  encontrou os dados do usuario informado, esses dados serão armazenados aqui 
     const validPassword = await bcrypt.compare(password, user.password);
     const userLogin = user.username; // recuperando o nome de usuario apos login
+    let id_user = user.id;
     if (!validPassword) {
       return res.status(400).json({ message: 'Senha incorreta.' });
     }
 
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
     console.log("retorno do token vindo pelo servidor", token);
+    console.log("retorno do id vindo pelo servidor", id_user);
     console.log("retorno do nome de usuario vindo do servidor", userLogin);
 
-    res.json({ token, userLogin });
+    res.json({ token, userLogin,id_user });
   });
 
   disconnectFromDatabase(dbconnection);

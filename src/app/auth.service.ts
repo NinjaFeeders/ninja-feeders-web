@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import{HttpClient}from '@angular/common/http';
-import{Router}from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';  // implementar observable para emitir e monitorar mudanças no estado de authenticação e no nome de usuario
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,99 +11,95 @@ export class AuthService {
   private baseUrl = 'http://localhost:8000';
   private tokenKey = 'authToken';
   private usernameKey = 'authUsername';
+  private idUserKey = 'authIduser'; // Chave para armazenar o ID do usuário no localStorage
 
-  // implementar observable para emitir e monitorar mudanças no estado de authenticação e no nome de usuario
+  // Observable para emitir e monitorar mudanças no estado de autenticação e no nome de usuário
   private isAuthenticatedSubject: BehaviorSubject<boolean>;
   private usernameSubject: BehaviorSubject<string>;
 
-
-  constructor(private http:HttpClient,private router:Router) { 
+  constructor(private http: HttpClient, private router: Router) {
     const token = localStorage.getItem(this.tokenKey);
     const username = localStorage.getItem(this.usernameKey);
+    // const idUser = localStorage.getItem(this.idUserKey); // Recupera o ID do usuário do localStorage (se existir)
     this.isAuthenticatedSubject = new BehaviorSubject<boolean>(!!token);
     this.usernameSubject = new BehaviorSubject<string>(username);
-
   }
 
-  get isAuthenticated$():Observable<boolean> {
-    // Implemente a lógica para verificar se o usuário está autenticado
-    // Você pode usar localStorage, sessionStorage ou outros métodos de armazenamento para isso
-    //return !!localStorage.getItem(this.tokenKey);
+  get isAuthenticated$(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
 
-  get username$():Observable<string>{
-    //return localStorage.getItem(this.usernameKey);
+  get username$(): Observable<string> {
     return this.usernameSubject.asObservable();
   }
 
-  register(nome: string,username:string, password: string) { // registrar usuario
-
-    console.log(nome,"chegando no metodo register do serviço AuthService")
-    return this.http.post<any>(`${this.baseUrl}/usersregister`, { nome,username,password });
+  register(nome: string, username: string, password: string) {
+    return this.http.post<any>(`${this.baseUrl}/usersregister`, { nome, username, password });
   }
 
-  login(username: string, password: string): Observable<any> { // fazer login
-    console.log("chegando no metodo login de authService",username, password,)
-    return this.http.post<any>(`${this.baseUrl}/login`, {username,password}).pipe(
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/login`, { username, password }).pipe(
       tap({
         next: (res) => {
+          console.log('Response from server:', res); // Verifica a resposta do servidor
           this.setToken(res.token);
           this.setUsername(res.userLogin); // Armazena o nome de usuário no localStorage
+          this.setIdUser(res.id_user); // Armazena o ID do usuário no localStorage
+
+          console.log('ID do usuário no AuthService:', res.id_user); // Verifica se o ID do usuário está correto
 
           this.isAuthenticatedSubject.next(true);
-          this.usernameSubject.next(res.userLogin);
+          this.usernameSubject.next(res.userLogin); // Atualiza o observable
         },
         error: (error) => {
           // Tratar erro, se necessário
+          console.error('Erro no login:', error);
         },
         complete: () => {
           // Lógica a ser executada após a conclusão, se necessário
         }
       })
-
-    )
-     
+    );
   }
-  getAllUsers(){
-    console.log("enviando solicitação para recuperar usuarios cadastrados");
+
+  getAllUsers() {
     return this.http.get<any[]>(`${this.baseUrl}/users`);
   }
 
- 
-
-  setToken(token: string) { // sua função é armazenar o token de autenticação no localstorage do navegador
-    console.log("chegando no metodo login de setToken",token)
-      localStorage.setItem(this.tokenKey, token);
-      console.log("chegando no metodo login de setToken",localStorage);
-  }
-  setUsername(userLogin:string){ // armazena o nome de usuario para ser recuperado e usado para exibir o nome de usuario logado, ou para persistir no registro de msg, com autor da msg
-    localStorage.setItem(this.usernameKey,userLogin);
+  setToken(token: string) {
+    localStorage.setItem(this.tokenKey, token);
   }
 
-  getToken(): string { // sua função é retornar o localstorage, Recupera o token de autenticação do localStorage.
+  setUsername(userLogin: string) {
+    localStorage.setItem(this.usernameKey, userLogin);
+  }
+
+  setIdUser(id: string) {
+    localStorage.setItem(this.idUserKey, id);
+  }
+
+  getToken(): string {
     return localStorage.getItem(this.tokenKey);
-    
   }
 
-  
   getUsername(): string {
     return localStorage.getItem(this.usernameKey);
   }
 
-  
+  getIdUser(): string {
+    return localStorage.getItem(this.idUserKey);
+  }
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem(this.tokenKey);
   }
 
-  logout() { //fazer logout, encerrar sessão
+  logout() {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.usernameKey);
-    this.isAuthenticatedSubject.next(false);  // essa linha ajuda a evitar um despejo de memoria evitando bug no metodo de logout
-    this.usernameSubject.next(null); // essa linha ajuda a evitar um despejo de memoria evitando bug no metodo de logout
-    this.router.navigate([''])
+    localStorage.removeItem(this.idUserKey); // Remove o ID do usuário ao fazer logout
+    this.isAuthenticatedSubject.next(false);
+    this.usernameSubject.next(null);
+    this.router.navigate(['']);
   }
 }
-
-

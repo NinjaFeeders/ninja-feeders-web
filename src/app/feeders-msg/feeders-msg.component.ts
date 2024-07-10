@@ -38,13 +38,13 @@ export class FeedersMsgComponent implements OnInit  {
   currentPage = 1;
   itemsPerPage = 5;
   totalPages=0;
+  idUserDandoLike:string;
 
  
   buttonLike:boolean = false;
   btnLike:string="";
   btnDeslike:string="";
   autorMsgLikeDislike:string ="";
-  idStyleMsg:number;
   isLike:boolean;
   
  
@@ -122,8 +122,9 @@ export class FeedersMsgComponent implements OnInit  {
   loadUsers(){
    
       this.listUsers.getAllUsers().subscribe(users =>{
-
+       
         this.usersLogados = users; // todos os usuarios vão ser armazenado no array usersLogados
+        
       })
   }
 
@@ -131,8 +132,10 @@ export class FeedersMsgComponent implements OnInit  {
   // funcionalidade de dar like(goste) e dislike(não gostei)
 
   like(idmsg:number){ // toogle like deslike
-
+    
     this.isLike=true;
+    this.idUserDandoLike = this.listUsers.getIdUser(); // Id do usuario logado acessivel nesse componente, para prencher o campo id_user "chave estrangeira" na tabela user_likes
+    console.log(`ID user acessivel no componente feeders-msg: ${this.idUserDandoLike}`)
     this.listMSG.likeMsg(idmsg,this.isLike).subscribe(
       response => {
           console.log('Response from server:', response);

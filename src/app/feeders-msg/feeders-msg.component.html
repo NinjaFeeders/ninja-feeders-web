@@ -40,10 +40,12 @@
                         </div>
                         <!-- a tag small abaixo não é nescessario para o expandir e contrair funcionar , mais 
                         sera usado para add um icone de seta para cima e seta para baixo-->
+                        <div class="  text-center">
                         <small type="button" (click)="toggleExpand(getMessageIndex(i))" class="expand-toggle" style="cursor: pointer;">
-                            <img *ngIf="!isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-baixo2.png" alt="Expandir" width="24" height="24">
-                            <img *ngIf="isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-cima2.png" alt="Contrair" width="24" height="24">
+                            <img *ngIf="!isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-baixo2.png" alt="Expandir" width="60" height="24">
+                            <img *ngIf="isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-cima2.png" alt="Contrair" width="60" height="24">
                         </small>
+                    </div>
                     </div>
                     <div class="mt-1 d-flex justify-content-end w-100">
                         <div class="d-flex justify-content-around">
