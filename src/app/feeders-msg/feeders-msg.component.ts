@@ -38,7 +38,7 @@ export class FeedersMsgComponent implements OnInit  {
   currentPage = 1;
   itemsPerPage = 5;
   totalPages=0;
-  idUserDandoLike:string;
+  idUserDandoLike:number;
 
  
   buttonLike:boolean = false;
@@ -46,6 +46,7 @@ export class FeedersMsgComponent implements OnInit  {
   btnDeslike:string="";
   autorMsgLikeDislike:string ="";
   isLike:boolean;
+  like_status:string;
   
  
  
@@ -134,9 +135,10 @@ export class FeedersMsgComponent implements OnInit  {
   like(idmsg:number){ // toogle like deslike
     
     this.isLike=true;
-    this.idUserDandoLike = this.listUsers.getIdUser(); // Id do usuario logado acessivel nesse componente, para prencher o campo id_user "chave estrangeira" na tabela user_likes
+    this.like_status = 'like';
+    this.idUserDandoLike = Number(this.listUsers.getIdUser()); // Id do usuario logado acessivel nesse componente, para prencher o campo id_user "chave estrangeira" na tabela user_likes
     console.log(`ID user acessivel no componente feeders-msg: ${this.idUserDandoLike}`)
-    this.listMSG.likeMsg(idmsg,this.isLike).subscribe(
+    this.listMSG.likeMsg(idmsg,this.isLike,this.idUserDandoLike,this.like_status).subscribe(
       response => {
           console.log('Response from server:', response);
           console.log(`Response message: ${response.message}`);
@@ -159,7 +161,10 @@ export class FeedersMsgComponent implements OnInit  {
 
   deslike(idmsg:number){
     this.isLike = false;
-    this.listMSG.likeMsg(idmsg,this.isLike).subscribe(
+    this.like_status = 'dislike';
+    this.idUserDandoLike = Number(this.listUsers.getIdUser()); // Id do usuario logado acessivel nesse componente, para prencher o campo id_user "chave estrangeira" na tabela user_likes
+    
+    this.listMSG.likeMsg(idmsg,this.isLike,this.idUserDandoLike,this.like_status).subscribe(
       response =>{
         console.log(`Response from server: ${response.message}`);
         // Atualizar localmente o contador de deslikes

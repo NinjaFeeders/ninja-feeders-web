@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = 'http://localhost:8000/api';
   private tokenKey = 'authToken';
   private usernameKey = 'authUsername';
   private idUserKey = 'authIduser'; // Chave para armazenar o ID do usuário no localStorage

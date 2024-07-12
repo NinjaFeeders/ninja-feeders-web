@@ -7,15 +7,17 @@ import { stringify } from 'querystring';
   providedIn: 'root'
 })
 export class MensagensService {
-  private baseUrl = 'http://localhost:8000';
-
+  private baseUrl = 'http://localhost:8000/api';
+  
   constructor(private http:HttpClient,private router:Router) { }
 
   registerMsgService(tituloMsg:string,msg:string,autor:string) {
     console.log(autor," autor chegando no metodo registerMsbService do serviço MensagensService ");
     console.log(tituloMsg," titulo chegando no metodo registerMsbService do serviço MensagensService ");
     console.log(msg," corpo chegando no metodo registerMsgService do serviço MensagensService")
-    return this.http.post<any>(`${this.baseUrl}/mensgens`, {tituloMsg, msg,autor});
+    const likes = parseInt('0');
+    const deslikes = parseInt('0');
+    return this.http.post<any>(`${this.baseUrl}/mensgens`, {tituloMsg, msg,autor,likes,deslikes});
   }
 
   getAllmessage(){
@@ -24,11 +26,12 @@ export class MensagensService {
   }
 
 
-  likeMsg(idmsg:number,isLike:boolean){
-    console.log(`id da msg do like chegou no serviço ${idmsg} ${isLike}`)
+  likeMsg(idmsg:number,isLike:boolean,id_user:number,like_status:string){
+    
+    console.log(`id da msg do like e id do user que deu o like chegou no serviço MensagensService ${idmsg} ${isLike} ${id_user}`)
    
     
-    return this.http.put<any>(`${this.baseUrl}/likes`,{idmsg,isLike});
+    return this.http.put<any>(`${this.baseUrl}/likes`,{idmsg,isLike,id_user,like_status});
   }
 
   
