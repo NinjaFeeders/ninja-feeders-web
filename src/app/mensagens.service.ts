@@ -28,11 +28,16 @@ export class MensagensService {
 
   likeMsg(idmsg:number,isLike:boolean,id_user:number,like_status:string){
     
-    console.log(`id da msg do like e id do user que deu o like chegou no serviço MensagensService ${idmsg} ${isLike} ${id_user}`)
+    console.log(`id da msg do like, id do usuario que deu o like chegou no serviço MensagensService ${idmsg} ${isLike} ${id_user} \n like status:  ${like_status}`)
    
-    
-    return this.http.put<any>(`${this.baseUrl}/likes`,{idmsg,isLike,id_user,like_status});
+    if(isLike===true){
+      return this.http.put<any>(`${this.baseUrl}/likes`,{idmsg,isLike,id_user,like_status});
+    }else{
+      return this.http.put<any>(`${this.baseUrl}/dislikes`,{idmsg,isLike,id_user,like_status});
+    }
   }
+
+  
 
   
 }
