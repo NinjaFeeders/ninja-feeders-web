@@ -2,7 +2,8 @@ const express = require('express');
 const { connectToDatabase, disconnectFromDatabase } = require('../database');
 const router = express.Router();
 
-router.post('/mensgens', (req, res) => {
+// inserir um registro de uma msg
+router.post('/mensgens', (req, res) => { 
   const dbconnection = connectToDatabase();
   const { msg, autor, tituloMsg,likes,deslikes } = req.body;
 
@@ -24,9 +25,10 @@ router.post('/mensgens', (req, res) => {
   });
 });
 
+// listar as msg registradas
 router.get('/mensgens', (req, res) => {
   const dbconnection = connectToDatabase();
-  const sql = 'SELECT * FROM `mensgens`';
+  const sql = 'SELECT * FROM `mensgens` ORDER BY `id` DESC ';
 
   dbconnection.query(sql, (err, results) => {
     if (err) {

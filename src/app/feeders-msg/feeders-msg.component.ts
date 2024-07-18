@@ -27,11 +27,6 @@ interface users{
   styleUrls: ['./feeders-msg.component.css']
 })
 export class FeedersMsgComponent implements OnInit  {
-
-  
-
- 
-
   messages:Message[] = [];
   usersLogados:users[]=[];
   autorDaMensagem:any;
@@ -55,8 +50,22 @@ export class FeedersMsgComponent implements OnInit  {
   constructor(private listMSG:MensagensService, private listUsers:AuthService){}
 
   ngOnInit(): void {
+    // ****************
+    this.listMSG.novaMensagem$.subscribe(newMessage => {
+      if (newMessage) {
+        this.loadMSG();
+        this.messages.unshift(newMessage); // Adicionar nova mensagem no início da lista
+        this.totalPages = Math.ceil(this.messages.length / this.itemsPerPage);
+        this.expandedMessages = new Array(this.messages.length).fill(false);
+        console.log('nova msg chegou no feedersCompnent',newMessage, "jairinho");
+      }
+    });
+    //***************
+
     this.loadMSG();
     this.loadUsers();
+
+    
   }
 
 
@@ -68,8 +77,7 @@ export class FeedersMsgComponent implements OnInit  {
         
       this.messages = data;
    
-      this.totalPages = Math.ceil(this.messages.length/this.itemsPerPage); // usado para implementar o valor total de paginas para paginação
-      this.expandedMessages = new Array(this.messages.length).fill(false); // usado para implementar a expanção do texto da mensagem
+     
       },     
       error => {
         console.error('Erro ao recuperar feedbacks:', error);

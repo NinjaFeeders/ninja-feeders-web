@@ -1,17 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { stringify } from 'querystring';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MensagensService {
+
   private baseUrl = 'http://localhost:8000/api';
-  
+
+  // *********
+  private novaMensagemSubject = new Subject<any>();
+  novaMensagem$ = this.novaMensagemSubject.asObservable();
+  // *************
   constructor(private http:HttpClient,private router:Router) { }
 
-  registerMsgService(tituloMsg:string,msg:string,autor:string) {
+  registerMsgService(tituloMsg:string,msg:string,autor:string): Observable<any> {
     console.log(autor," autor chegando no metodo registerMsbService do serviço MensagensService ");
     console.log(tituloMsg," titulo chegando no metodo registerMsbService do serviço MensagensService ");
     console.log(msg," corpo chegando no metodo registerMsgService do serviço MensagensService")
@@ -20,8 +25,16 @@ export class MensagensService {
     return this.http.post<any>(`${this.baseUrl}/mensgens`, {tituloMsg, msg,autor,likes,deslikes});
   }
 
-  getAllmessage(){
-    console.log("enviando solicitação para recuperar mensagens");
+  // ************
+  emitNovaMensagem(novaMensagem:any) {
+    console.log('Emitindo nova mensagem:', novaMensagem); // Log para verificar se o método está sendo chamado
+
+    this.novaMensagemSubject.next(novaMensagem);
+  }
+  //*********** *
+
+  getAllmessage(): Observable<any[]>{
+    console.log("enviando solicitação para recuperar mensagens no sevice MensagenService");
     return this.http.get<any[]>(`${this.baseUrl}/mensgens`);
   }
 

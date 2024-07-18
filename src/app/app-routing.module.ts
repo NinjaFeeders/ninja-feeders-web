@@ -11,6 +11,7 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 const routes: Routes = [
   { path: "header", component: HeaderComponent },
   { path: "", component: FeedersMsgComponent },
+  {path:"feeders-msg",component:FeedersMsgComponent},
   { path: "login", component: LoginComponent },
   { path: "registeruser", component: RegisterUserComponent },
   { path: "footer", component: FooterComponent },

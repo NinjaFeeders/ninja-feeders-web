@@ -40,6 +40,8 @@ export class FooterComponent implements OnInit {
     let titulomsg = this.msg.split('\n')[0]; // separamos a  primeira linha da msg para separar o titulo da msg
     if(titulomsg.length > 72){// subtrair os primeiros 72 caracteres da primeira linha da msg
       titulomsg = titulomsg.substring(0,72) +'...';
+    }else{// extrai o titulo menor que 72 caractere e add '...' no
+      titulomsg = titulomsg.substring(0,titulomsg.length) +'...';
     }
 
     const mensageMsg = this.msg // mensagem completa
@@ -48,7 +50,7 @@ export class FooterComponent implements OnInit {
     
     response => {
       console.log('Mensagem registrado com sucesso', response);
-      this.router.navigate(['']); // Navega para a tela de login após o registro
+      this.mensagensService.emitNovaMensagem(response);
       this.msg = ""
     },
     error => {

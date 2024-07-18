@@ -13,6 +13,8 @@ import { MsgSelectTypeMessageModule } from './msg-select-type-message/msg-select
 import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room/msg-private-room.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CommonModule } from '@angular/common';
+import { MensagensService } from './mensagens.service';
+import { AuthService } from './auth.service';
 //import { MsgPrivateRoomModule } from './msg-private-room/msg-private-room.module';
 
 
@@ -40,7 +42,10 @@ import { CommonModule } from '@angular/common';
   exports:[
     FeedersMsgComponent
   ],
-  providers: [],
+  providers: [
+    MensagensService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
