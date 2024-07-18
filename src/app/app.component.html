@@ -1,18 +1,21 @@
 <div>
-  
-        <div>
-          <app-header (toggleMenu)="isMenuExpanded = !isMenuExpanded"></app-header>
-        </div>
-      
-        <div class="content-wrapper">
-            <app-user-list [isMenuExpanded]="isMenuExpanded" ></app-user-list>
-          <div class="message-area">
-            <router-outlet></router-outlet>
-          </div>
-        </div>
 
-        <div>
-        <app-footer></app-footer>
-      </div>
+  <div>
+    <app-header (toggleMenu)="isMenuExpanded = !isMenuExpanded"></app-header>
+  </div>
+
+  <div class="content-wrapper">
+    <!--app-user-list é o componente da lista de usuarios-->
+    <app-user-list [isMenuExpanded]="isMenuExpanded"></app-user-list>
+
+    
+    <div class="message-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div>
+    <app-footer></app-footer>
+  </div>
 
 </div>

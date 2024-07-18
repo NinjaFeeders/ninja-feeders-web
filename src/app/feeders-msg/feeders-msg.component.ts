@@ -55,9 +55,8 @@ export class FeedersMsgComponent implements OnInit  {
       if (newMessage) {
         this.loadMSG();
         this.messages.unshift(newMessage); // Adicionar nova mensagem no início da lista
-        this.totalPages = Math.ceil(this.messages.length / this.itemsPerPage);
-        this.expandedMessages = new Array(this.messages.length).fill(false);
-        console.log('nova msg chegou no feedersCompnent',newMessage, "jairinho");
+        // this.totalPages = Math.ceil(this.messages.length / this.itemsPerPage);
+        // this.expandedMessages = new Array(this.messages.length).fill(false);
       }
     });
     //***************
@@ -76,7 +75,8 @@ export class FeedersMsgComponent implements OnInit  {
     this.listMSG.getAllmessage().subscribe(data => {
         
       this.messages = data;
-   
+      this.totalPages = Math.ceil(this.messages.length / this.itemsPerPage);
+      this.expandedMessages = new Array(this.messages.length).fill(false);
      
       },     
       error => {
