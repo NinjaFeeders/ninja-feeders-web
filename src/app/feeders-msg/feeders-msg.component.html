@@ -45,6 +45,9 @@
                           <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" />
                           {{ message.deslikes }}
                         </button>
+                        <span class="ms-5 me-5 fs-4" [ngClass]="{'positive':message.pontos > 0, 'negative':message.pontos < 0,'neutro':message.pontos == 0}">
+                          {{message.pontos}} pontos
+                        </span>
                       </div>
                       <div class="me-2">
                         <button class="btn btn-outline-info border-0" (click)="like(message.id)">
@@ -52,7 +55,12 @@
                           {{ message.likes }}
                         </button>
                       </div>
+                    
                     </div>
+                  </div>
+
+                  <div>
+                   
                   </div>
                 </div>
               </div>

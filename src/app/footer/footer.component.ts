@@ -24,7 +24,13 @@ export class FooterComponent implements OnInit {
   }
 
   registerMsgComp() {
-    
+
+    this.autor = this.autorMSG.getUsername(); // add o user logado na variavel autor, pois esse user logado sera o autor da msg que ele vai enviar
+   if(!this.autor){ // o user logado é o autor da msg que sera registrada, se ele não estiver logado, sera solicitado que faça login
+    alert("Somente usuarios logados podem enviar mensagem \n se ainda não for membro da rede faça seu registro em 'register' ");
+
+   }else{
+
     // Verificação dos campos obrigatórios
     if (!this.msg) { 
       console.error('Todos os campos são obrigatórios.');
@@ -32,9 +38,9 @@ export class FooterComponent implements OnInit {
       return;
     }
 
-  console.log(this.msg, " chegando na classe login-register do componente login-register")
+    console.log(this.msg, " chegando na classe login-register do componente login-register")
 
-    this.autor = this.autorMSG.getUsername();
+    
     console.log("nome de usuario chegou em footer",this.autor);
 
     let titulomsg = this.msg.split('\n')[0]; // separamos a  primeira linha da msg para separar o titulo da msg
@@ -57,6 +63,12 @@ export class FooterComponent implements OnInit {
       console.error('Erro ao registrar usuário', error);
     }
   );
+
+   } 
+   
+    
+  
+ 
 }
 
 

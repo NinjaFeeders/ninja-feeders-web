@@ -8,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
-import { HttpClientModule } from '@angular/common/http';// Importação do HttpClientModule
+import { HttpClientModule } from '@angular/common/http';// Importação do HttpClientModule para importar metodo http para os serviços
 import { MsgSelectTypeMessageModule } from './msg-select-type-message/msg-select-type-message.module';
 import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room/msg-private-room.component';
 import { UserListComponent } from './user-list/user-list.component';

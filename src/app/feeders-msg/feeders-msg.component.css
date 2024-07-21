@@ -37,4 +37,17 @@
     font-style: normal;
   }
 
+  /* codigo usado para alternar a cor da pontuação da mensagem */
+  .positive {
+    color:rgb(32, 174, 60);
+  }
+
+  .neutro{
+    color:dodgerblue;
+  }
+  
+  .negative {
+    color: red;
+  }
+  
   
