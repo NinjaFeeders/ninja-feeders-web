@@ -16,13 +16,14 @@ export class MensagensService {
   // *************
   constructor(private http:HttpClient,private router:Router) { }
 
-  registerMsgService(tituloMsg:string,msg:string,autor:string): Observable<any> {
+  registerMsgService(msg:string,autor:string,visibilidade_msg:string,tituloMsg:string): Observable<any> {
     console.log(autor," autor chegando no metodo registerMsbService do serviço MensagensService ");
     console.log(tituloMsg," titulo chegando no metodo registerMsbService do serviço MensagensService ");
-    console.log(msg," corpo chegando no metodo registerMsgService do serviço MensagensService")
+    console.log(msg," corpo chegando no metodo registerMsgService do serviço MensagensService");
+    console.log(visibilidade_msg,"visibilidade chegou em MessageService()");
     const likes = parseInt('0');
     const deslikes = parseInt('0');
-    return this.http.post<any>(`${this.baseUrl}/mensgens`, {tituloMsg, msg,autor,likes,deslikes});
+    return this.http.post<any>(`${this.baseUrl}/mensgens`, {msg,likes,deslikes,autor,visibilidade_msg, tituloMsg});
   }
 
   // ************

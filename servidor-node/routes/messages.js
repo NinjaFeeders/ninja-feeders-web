@@ -5,15 +5,15 @@ const router = express.Router();
 // inserir um registro de uma msg
 router.post('/mensgens', (req, res) => { 
   const dbconnection = connectToDatabase();
-  const { msg, autor, tituloMsg,likes,deslikes } = req.body;
+  const { msg,likes,deslikes,autor,visibilidade_msg, tituloMsg } = req.body;
 
   if (!tituloMsg || !msg || !autor) {
     res.status(400).json({ error: 'Todos os campos devem ser fornecidos.' });
     return;
   }
 
-  const sql = 'INSERT INTO `mensgens` (msg,likes,deslikes,autor,titulomsg) VALUES (?,?,?,?,?)';
-  dbconnection.query(sql, [msg,likes,deslikes, autor, tituloMsg], (err, results) => {
+  const sql = 'INSERT INTO `mensgens` (msg,likes,deslikes,autor,visibilidade_msg,titulomsg) VALUES (?,?,?,?,?,?)';
+  dbconnection.query(sql, [msg,likes,deslikes, autor,visibilidade_msg, tituloMsg], (err, results) => {
     if (err) {
       console.error('Erro ao inserir mensagem:', err);
       res.status(500).json({ error: 'Erro ao inserir mensagem.' });

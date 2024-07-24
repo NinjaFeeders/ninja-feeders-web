@@ -9,9 +9,14 @@
         <!-- listagem da mensagens  -->
         <div class="m-2 border-top border-bottom p-3" *ngFor="let message of paginatedMessages; let i = index">
           <div class="d-flex flex-row justify-content-between">
+           
             <div class="bg-info ps-3 pe-3 border border-2 border-dark rounded-circle">
               <img class="mt-2 rounded-circle" width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
               <h6 class="card-title ms-2 mb-2 me-2">{{ message.autor }}</h6>
+            </div>
+
+            <div>
+              <h5>{{message.criada_em | date:'dd/MM/yyyy'}}</h5>
             </div>
           </div>
           <div class="card-body">

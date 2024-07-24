@@ -100,6 +100,6 @@ export class AuthService {
     localStorage.removeItem(this.idUserKey); // Remove o ID do usuário ao fazer logout
     this.isAuthenticatedSubject.next(false);
     this.usernameSubject.next(null);
-    this.router.navigate(['']);
+    this.router.navigate(['feeders-msg']);
   }
 }

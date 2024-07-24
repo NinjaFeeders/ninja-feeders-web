@@ -14,11 +14,13 @@ export class FooterComponent implements OnInit {
   likes:number=0;
   deslikes:number=0;
   autor:string="";
+  visibilit_msg:string = "public";
+  isPrivate:boolean = false;
 
   // variavel para fazer a contagem de caracteres da entrada de dados na text area
   contagenCaractere:number=0;
 
-  constructor(private mensagensService:MensagensService,private autorMSG:AuthService, private router:Router) { }
+  constructor(private mensagensService:MensagensService,private autorMSG:AuthService) { }
 
   ngOnInit() {
   }
@@ -51,13 +53,18 @@ export class FooterComponent implements OnInit {
     }
 
     const mensageMsg = this.msg // mensagem completa
-      console.log(`titulo = ${titulomsg} \n mensagem = ${mensageMsg} \n autor = ${this.autor}`);
-  this.mensagensService.registerMsgService(titulomsg,mensageMsg,this.autor).subscribe(
     
+    this.visibilit_msg = this.isPrivate ?'private':'public'; // Define a visibilidade da mensagem 
+    const visibilidade_msg = this.visibilit_msg;
+      console.log(`titulo = ${titulomsg} \n mensagem = ${mensageMsg} \n autor = ${this.autor}`);
+  this.mensagensService.registerMsgService(mensageMsg,this.autor,visibilidade_msg,titulomsg).subscribe(
+  
     response => {
       console.log('Mensagem registrado com sucesso', response);
+      console.log("visibilidade: ", visibilidade_msg , "chegou em registeMessage()");
       this.mensagensService.emitNovaMensagem(response);
       this.msg = ""
+      this.isPrivate=false
     },
     error => {
       console.error('Erro ao registrar usuário', error);

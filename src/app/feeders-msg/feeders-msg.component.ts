@@ -11,6 +11,7 @@ interface Message {
   likes: number;
   deslikes: number
   autor: string;
+  criada_em:Date;
   pontos: number;
 }
 
@@ -40,7 +41,10 @@ export class FeedersMsgComponent implements OnInit {
   // usado para contrair e expandir a msg
   expandedMessages: boolean[] = [];
   pontuacaoGeral: number;
-  isUserLoggedin:boolean = false;
+  isUserLoggedin: boolean = false;
+
+  // usado para formatar a data de registro da msg
+  dateFormated:Date;
 
   constructor(private listMSG: MensagensService, private listUsers: AuthService) { }
 
@@ -64,29 +68,23 @@ export class FeedersMsgComponent implements OnInit {
 
     this.listMSG.getAllmessage().subscribe(data => {
       this.isUserLoggedin = this.listUsers.isAuthenticated(); // a função isAutenticated retorn um true se o usuario tiver logado
-       console.log("autenticated: ", this.isUserLoggedin)
-       if(!this.isUserLoggedin){ // se o usuario não estiver logado:
-        data =data.slice(0,3); // a lisata de msg sera limitada as 3 ultimas msg registrada, se o usr estiver logado essa linha de codigo sera ignorada
-       }
+      console.log("autenticated: ", this.isUserLoggedin)
+      if (!this.isUserLoggedin) { // se o usuario não estiver logado:
+        data = data.slice(0, 3); // a lisata de msg sera limitada as 3 ultimas msg registrada, se o usr estiver logado essa linha de codigo sera ignorada
+      }
       this.messages = data;
       console.log("LoadMSG add msg do DB\n no array messages\n tipado com a interface Message[] ", this.messages);
       // o codigo envolvido nos + e = é apenas um teste de captura da quantidade de like e deslike, para implementar o puntuação geral da msg
       //++++++++++++++++++++++++====================++++++++++++++++++++++++++++++++====================================
       this.messages.forEach((data, index) => {
         data.pontos = data.likes - data.deslikes; // aqui eu implemento a pontuação geral da msg, que ficara armazena n propriedade pontos da interface message
-        console.log("LoadMSG add likes do DB\n em uma variavel", data.pontos, " id ", data.id);
+        // console.log("LoadMSG add likes do DB\n em uma variavel", data.pontos, " id ", data.id);
 
         this.expandedMessages[index] = data.pontos >= 0
-               
-
       })
-
-
       //++++++++++++++++++++++++====================++++++++++++++++++++++++++++++++====================================
       this.totalPages = Math.ceil(this.messages.length / this.itemsPerPage);
       // this.expandedMessages = new Array(this.messages.length).fill(true);
-
-
     },
       error => {
         console.error('Erro ao recuperar feedbacks:', error);
@@ -123,7 +121,7 @@ export class FeedersMsgComponent implements OnInit {
   toggleExpand(index: number): void {
     this.expandedMessages[index] = !this.expandedMessages[index];
   }
- 
+
 
   isExpanded(index: number): boolean {
     return this.expandedMessages[index];

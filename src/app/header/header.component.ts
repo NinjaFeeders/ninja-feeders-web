@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
  private authSubscription:Subscription;
  private usernameSubscription:Subscription;
 
-  constructor(private authService:AuthService,private route:ActivatedRoute) { }
+  constructor(private authService:AuthService,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit() {
     // Recupera o nome de usuário do localStorage
