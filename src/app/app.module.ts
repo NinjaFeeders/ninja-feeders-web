@@ -15,6 +15,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { CommonModule } from '@angular/common';
 import { MensagensService } from './mensagens.service';
 import { AuthService } from './auth.service';
+import { NotificationComponent } from './notification/notification.component';
 //import { MsgPrivateRoomModule } from './msg-private-room/msg-private-room.module';
 
 
@@ -27,6 +28,7 @@ import { AuthService } from './auth.service';
     LoginComponent,
     RegisterUserComponent,
     UserListComponent,
+    NotificationComponent,
     
   ],
   imports: [

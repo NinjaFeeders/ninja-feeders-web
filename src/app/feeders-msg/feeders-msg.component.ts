@@ -72,7 +72,7 @@ export class FeedersMsgComponent implements OnInit {
       console.log("autenticated: ", this.isUserLoggedin)
       if (!this.isUserLoggedin) { // se o usuario não estiver logado:
         data = data.filter(message => message.visibilidade_msg ==='public')// filtra as msg pela visibilidade === public
-                   .sort((a,b)=>new Date(b.criada_em).getTime() -new Date(a.criada_em).getTime()) // essa linha Faz com que o array de mensagens seja ordenado de modo que as mensagens mais recentes apareçam primeiro. Ela converte as datas de criação das mensagens para milissegundos e as compara para determinar a ordem.
+                   .sort((a,b)=>new Date(b.criada_em).getTime() -new Date(a.criada_em).getTime()) // essa linha Faz com que o array de mensagens seja ordenado de modo que as mensagens mais recentes apareçam primeiro. Ela converte as datas de criação das mensagens para milissegundos e as compara para determinar a ordem. pesquise sobre o metodo sort() para saber mais
                    .slice(0, 3); // a lisata de msg sera limitada as 3 ultimas msg registrada, se o usr estiver logado essa linha de codigo sera ignorada
          
       }

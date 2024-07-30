@@ -1,0 +1,23 @@
+<!-- notification.component.html -->
+<div *ngIf="pendingRequests.length > 0" class="modal" tabindex="-1" style="display:block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Solicitações de Amizade Pendentes</h5>
+          <button type="button" class="btn-close" (click)="pendingRequests = []"></button>
+        </div>
+        <div class="modal-body" *ngFor="let request of pendingRequests">
+          <p>{{ request.user_name }} quer ser seu amigo.</p>
+          <!-- requestId é o id da msg
+                request.friend_id é o usuario que recebeu a solicitação ode amizade 
+                e agora vai responder se aceita ou não a solicitação de amizade
+                ou seja: quando o user logado recebe uma  solicitaççao de amizade no registro da solicitação o user que recebe a solicitação 
+                é identificado como friend_id, quando user logado decide se aceita ou não a solicitação, ele vai se identificar como friend id
+                e o user_id é quem envia a solicitação de amizade, e agora é pra quem o solicitante vai responder-->
+          <button class="btn btn-success" (click)="acceptRequest(request.id,request.user_id, request.friend_id)">Aceitar</button>
+          <button class="btn btn-danger" (click)="rejectRequest(request.id,request.user_id)">Rejeitar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

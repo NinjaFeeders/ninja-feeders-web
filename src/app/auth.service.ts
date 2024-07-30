@@ -34,7 +34,18 @@ export class AuthService {
   }
 
   register(nome: string, username: string, password: string) {
-    return this.http.post<any>(`${this.baseUrl}/usersregister`, { nome, username, password });
+    return this.http.post<any>(`${this.baseUrl}/usersregister`, { nome, username, password }).pipe(
+      tap({
+        next: (response) => {
+          console.log('Usuário registrado com sucesso', response);
+        },
+        error: (error) => {
+          console.error('Erro ao registrar usuário', error);
+          alert(`o usuario ${username} ja existe \n Crie outro nome de usuario e tente novamente:`)
+          throw error; // Repassa o erro para o componente
+        }
+      })
+    );
   }
 
   login(username: string, password: string): Observable<any> {

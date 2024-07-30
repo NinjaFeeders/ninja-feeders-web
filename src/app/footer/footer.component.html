@@ -4,7 +4,7 @@
     <div class="row d-flex justify-content-center bg-light">
 
         <form class="col-8  p-3 text-center " (ngSubmit)="registerMsgComp()">
-            <div class="form-floating  input-group w-100 ">
+            <div class="form-floating  input-group w-100 mb-2 ">
                 <textarea class="form-control h-50 rounded-pill" type="text" id="msg" name="msg" required
                     [(ngModel)]="msg" maxlength="280"
                     (input)="contCaractereTextArea()"></textarea><!-- o maxlingth = "280 limita a text ares pra permitir que seja digitado apenos 280 caracteres"-->
@@ -14,16 +14,24 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col justify-content-center">
-                    <div class="row justify-content-center">
-                        <button type="submit" class="btn btn-primary mt-3 w-25">Enviar</button>
+                <div class="col col-sm-4  ">
+                    <div class="d-flex flex-column w-100  ">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary w-75 ">Enviar</button>
+                        </div>
+                       <div>
                         <small class="text-muted fs-6 "> 280/ {{contagenCaractere}}</small>
                         <!-- mostra a contagem dos caracteres-->
+                       </div>
+                        
                     </div>
                 </div>
-                <div class="col">
-                    <input class="me-1" type="checkbox" id="privateCheckbox" [(ngModel)]="isPrivate" name="isPrivate"/>
-                    <label for="privateCheckbox" class="pt-4 text-muted fs-4">mensagem privada</label>
+                <div class="col ">
+                    <div class="d-flex  justify-content-center align-items-center">
+                        <input class="me-1" type="checkbox" id="privateCheckbox" [(ngModel)]="isPrivate"
+                            name="isPrivate" />
+                        <label for="privateCheckbox" class=" text-muted fs-4">mensagem privada</label>
+                    </div>
                 </div>
             </div>
         </form>

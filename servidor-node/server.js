@@ -9,6 +9,7 @@ const { router: loginRoutes, authenticateJWT } = require('./routes/login');
 const messagesRoutes = require('./routes/messages');
 const likesRoutes = require('./routes/likes');
 const dislikesRoutes = require('./routes/dislikes');
+const friendsRoutes = require('./routes/friends');
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +19,8 @@ app.use('/api', loginRoutes);
 app.use('/api', /* authenticateJWT,*/ messagesRoutes); // o codigo comentado serve para fazer controle rota
 app.use('/api', /* authenticateJWT,*/  likesRoutes);
 app.use('/api',dislikesRoutes);
+app.use('/api', friendsRoutes);
+
 
 
 
