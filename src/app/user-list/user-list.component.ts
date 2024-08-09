@@ -38,8 +38,8 @@ export class UserListComponent implements OnInit {
   user_id_logado:number;
   user_name_id_logado:string;
   isConectedAsFriend:boolean=false;
-  statusConectionUsers:string="Add amizade";
-  colorButton:string="bg-warning"
+  statusConectionUsers:string="Add amigo?";
+  colorButton:string="bg-info"
   friend_id:number;
   friends:Friends[]=[]; // para implementar o desfazer amizade e implementar a alternancia do botão de add para remover
   statusFriend:string;
@@ -65,8 +65,10 @@ export class UserListComponent implements OnInit {
    
     this.listUsers.getAllUsers().subscribe(users =>{
       this.membrosDaRede = users; // todos os usuarios vão ser armazenado no array usersLogados
-      })
-}
+    
+      });
+
+      }
 
 loadAmizades(){
 
@@ -97,12 +99,13 @@ addAmigo(friend_id:number,user_name:string){ // parametro do usuario que o usuar
   console.log(`${friend_id} Friend_id do template\n chegou em user-list.component.ts`);
   if(this.isConectedAsFriend==false){
       this.isConectedAsFriend = true;
-      this.statusConectionUsers="Remover";
+      this.statusConectionUsers ="Remover";
       this.colorButton ="bg-success"
 
-      /** na perspectiva de quem manda solicitaçã ode amizade eu logado sou o user_id  */
+    /** na perspectiva de quem manda solicitaçã ode amizade eu logado sou o user_id  */
       this.user_id_logado = Number(this.listUsers.getIdUser()); // id na tab users do user que esta fazendo a solicitação de amizade
       /** o user_id manda na solicitação o seu user_name */
+    
       this.user_name_id_logado = this.listUsers.getUsername(); // user name da tabela user, do user que esta fazendo a solicitação de amizade
       console.log(`${friend_id} é o id do usuario  que o usuario logado quee add como amigo `);
       console.log(`${this.user_id_logado} é o id do usuario logado atualmente`);
@@ -118,16 +121,16 @@ addAmigo(friend_id:number,user_name:string){ // parametro do usuario que o usuar
       const user_name_friend_id = user_name;
       this.friendservice.solicitarAmizade(this.user_name_id_logado,this.user_id_logado, friend_id,user_name_friend_id).subscribe(response => {
         console.log(response);
-      //   console.log(response.message);
-      //   this.atualizarAmizade(friend_id, true);
-      // }, error => {
-      //   console.error('Erro ao enviar solicitação de amizade:', error);
       });
 
-  }else if(this.isConectedAsFriend == true ){
-    this.isConectedAsFriend = false;
-    this.statusConectionUsers="Pendente"
-    this.colorButton ="bg-warning"
+  }else if(this.isConectedAsFriend == true){
+
+           this.isConectedAsFriend = false;
+        this.statusConectionUsers="Add amizade"
+        this.colorButton ="bg-warning"
+    
+
+   
   }
 }
 

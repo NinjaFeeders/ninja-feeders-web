@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of,BehaviorSubject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
@@ -21,16 +21,22 @@ interface Friends{
 })
 export class FriendService {
   friends:Friends[]=[];
-  amigos:any[]= [];
+  // amigos:any[]= [];
 
-  n:string;
-  u_i:number;
-  f_i:number;
+  // n:string;
+  // u_i:number;
+  // f_i:number;
   
   private apiUrl = 'http://localhost:8000/api';
 
+  // observavel para mudar o estado do botão de solicitar amizade
 
-  constructor(private http: HttpClient,private userAuth:AuthService) { }
+
+
+  constructor(private http: HttpClient,
+              private userAuth:AuthService) {
+               
+               }
 
   
 
