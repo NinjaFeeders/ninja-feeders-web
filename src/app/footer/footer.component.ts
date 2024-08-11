@@ -14,6 +14,7 @@ export class FooterComponent implements OnInit {
   likes:number=0;
   deslikes:number=0;
   autor:string="";
+  autor_id:number;
   visibilit_msg:string = "public";
   isPrivate:boolean = false;
 
@@ -56,8 +57,10 @@ export class FooterComponent implements OnInit {
     
     this.visibilit_msg = this.isPrivate ?'private':'public'; // Define a visibilidade da mensagem 
     const visibilidade_msg = this.visibilit_msg;
+
       console.log(`titulo = ${titulomsg} \n mensagem = ${mensageMsg} \n autor = ${this.autor}`);
-  this.mensagensService.registerMsgService(mensageMsg,this.autor,visibilidade_msg,titulomsg).subscribe(
+      this.autor_id = Number(this.autorMSG.getIdUser());
+  this.mensagensService.registerMsgService(mensageMsg,this.autor, this.autor_id,visibilidade_msg,titulomsg).subscribe(
   
     response => {
       console.log('Mensagem registrado com sucesso', response);

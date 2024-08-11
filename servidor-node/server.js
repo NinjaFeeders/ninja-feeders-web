@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path'); // Módulo para lidar com caminhos de arquivos e diretórios.
+// const port = 8000;
 const port = 8000;
 
 const usersRoutes = require('./routes/users');
@@ -26,7 +27,7 @@ app.use('/api', friendsRoutes);
 
 // Rota de exemplo que aparece no teste do navegador
 app.get('/', (req, res) => {
-  res.send(` Servidor Node.js rota de texte:  para ninjafeeders rodando com sucesso! no localhost por ip: ${port}`);
+  res.send(` Servidor Node.js rota de texte:  para ninjafeeders rodando com sucesso! no localhost na porta: ${port}`);
 });
 
 // Middleware para servir arquivos estáticos da aplicação Angular

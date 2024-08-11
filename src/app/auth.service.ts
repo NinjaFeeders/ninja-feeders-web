@@ -9,6 +9,9 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private baseUrl = 'http://localhost:8000/api';
+   //private baseUrl = 'http://jcwebteste.com.br:8000/api'
+  //  private baseUrl = 'http://jcwebteste.com.br:3000/api'
+
   private tokenKey = 'authToken';
   private usernameKey = 'authUsername';
   private idUserKey = 'authIduser'; // Chave para armazenar o ID do usuário no localStorage

@@ -6,15 +6,15 @@ const { authenticateJWT } = require('./login');
 // Enviar solicitação de amizade
 router.post('/friends', (req, res) => {
     const dbconnection = connectToDatabase();
-    const {user_name, user_id,friend_id } = req.body;
+    const {user_name, user_id,friend_id,user_name_friend_id } = req.body;
   
     if (!user_name,!user_id,!friend_id) {
          return res.status(400).json({ message: 'O ID do amigo é obrigatório.' });
     }
 
-    const insertFriends = 'INSERT INTO friends (user_name,user_id, friend_id) VALUES (?,?,?)'; // 
+    const insertFriends = 'INSERT INTO friends (user_name,user_id,friend_name, friend_id) VALUES (?,?,?,?)'; // 
     console.log(user_id, "e", friend_id,"chegour no end pint");
-    dbconnection.query(insertFriends, [user_name,user_id,friend_id], (error, result) => {
+    dbconnection.query(insertFriends, [user_name,user_id,user_name_friend_id,friend_id], (error, result) => {
         if (error) {
             console.log(user_id, "e", friend_id,"chegour no end pint");
             console.error('Erro ao enviar solicitação de amizade:', error);
@@ -84,6 +84,7 @@ router.post('/friends/reject', (req, res) => {
 
 // Listar amizades do usuário
 router.get('/friends/list', (req, res) => {
+    
     const dbconnection = connectToDatabase();
 
     const sqlSelect = 'SELECT * FROM friends';
@@ -110,6 +111,32 @@ router.post('/friends/list/especific', (req, res) => {
             return;
         }
         res.status(200).json(results);
+        disconnectFromDatabase(dbconnection);
+    });
+});
+
+
+// amigos do user logado
+
+// Adicione este endpoint no arquivo de rotas de amigos
+router.get('/friends/myFriends/:user_id', (req, res) => {
+   
+    const dbconnection = connectToDatabase();
+    const { user_id } = req.params;
+    console.log(`Ops! user id ${user_id} no end point /friends/myFriends/:user_id `);
+    const sqlSelect = `
+    SELECT friend_id, user_id
+    FROM friends
+    WHERE (user_id = ? OR friend_id = ?) AND status = 'Amigos'
+    `;
+    dbconnection.query(sqlSelect, [user_id,user_id], (error, results) => {
+        if (error) {
+            console.error('Erro ao recuperar amigos:', error);
+            return res.status(500).json({ message: 'Erro ao recuperar amigos.' });
+        }
+        console.log(results)
+        res.status(200).json(results);
+       
         disconnectFromDatabase(dbconnection);
     });
 });

@@ -27,7 +27,9 @@ export class FriendService {
   // u_i:number;
   // f_i:number;
   
-  private apiUrl = 'http://localhost:8000/api';
+   private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'http://jcwebteste.com.br:8000/api'
+  // private apiUrl = 'http://jcwebteste.com.br:3000/api'
 
   // observavel para mudar o estado do botão de solicitar amizade
 
@@ -52,7 +54,7 @@ export class FriendService {
           alert(`${user_name} id: ${user_id} você não pode adicionar a si mesmo como amigo! `);
           return of(null);
         }else{
-          if (this.friends.length > 0) { // data.user_id é o 
+          if (this.friends.length > 0) { 
             this.friends.map(friend => {
               alert(`o user_name: ${user_name_friend_id} já é seu amigo,\n ou esta com solicitação Pendente`);
             });
@@ -61,7 +63,7 @@ export class FriendService {
           } else if (this.friends.length == 0) {
             console.log(`solicitação de amizade para id ${friend_id} chegou no serviço friendService`);
             console.log(`${user_id} usuario que solicitou amizade`);
-            return this.http.post<any>(`${this.apiUrl}/friends`, { user_name, user_id, friend_id });
+            return this.http.post<any>(`${this.apiUrl}/friends`, { user_name, user_id, friend_id,user_name_friend_id });
           }
 
         }
@@ -101,5 +103,9 @@ export class FriendService {
     return this.http.post<any>(`${this.apiUrl}/friends/list/especific`,{user_name,user_id,friend_id});
   }
 
+  // analizar se essa função fica aqui ou no service mensagens
+  // getUserFriends(userId: number): Observable<number[]> {
+  //   return this.http.get<number[]>(`${this.apiUrl}/friends/myFriends/${userId}`);
+  // }
   
 }

@@ -7,8 +7,14 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class MensagensService {
-
+  // url do servidor para endpoint local
   private baseUrl = 'http://localhost:8000/api';
+
+  // url do servidor para endpoint do servidor de produção
+  //private baseUrl = 'http://jcwebteste.com.br:8000/api'
+  // private baseUrl = 'http://jcwebteste.com.br:3000/api'
+
+
 
   // *********
   private novaMensagemSubject = new Subject<any>();
@@ -16,14 +22,14 @@ export class MensagensService {
   // *************
   constructor(private http:HttpClient,private router:Router) { }
 
-  registerMsgService(msg:string,autor:string,visibilidade_msg:string,tituloMsg:string): Observable<any> {
+  registerMsgService(msg:string,autor:string, autor_id:number,visibilidade_msg:string,tituloMsg:string): Observable<any> {
     console.log(autor," autor chegando no metodo registerMsbService do serviço MensagensService ");
     console.log(tituloMsg," titulo chegando no metodo registerMsbService do serviço MensagensService ");
     console.log(msg," corpo chegando no metodo registerMsgService do serviço MensagensService");
     console.log(visibilidade_msg,"visibilidade chegou em MessageService()");
     const likes = parseInt('0');
     const deslikes = parseInt('0');
-    return this.http.post<any>(`${this.baseUrl}/mensgens`, {msg,likes,deslikes,autor,visibilidade_msg, tituloMsg});
+    return this.http.post<any>(`${this.baseUrl}/mensgens`, {msg,likes,deslikes,autor,autor_id,visibilidade_msg, tituloMsg});
   }
 
   // ************
@@ -52,6 +58,14 @@ export class MensagensService {
   }
 
   
+
+  // obter os amigos do user logado
+
+  getUserFriends(userId: number): Observable<any[]> {
+    console.log(`user id ${userId} em getUserFrinds, de serviceMSG`);
+    console.log(typeof userId);
+    return this.http.get<any[]>(`${this.baseUrl}/friends/myFriends/${userId}`);
+  }
 
   
 }
