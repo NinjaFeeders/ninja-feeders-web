@@ -27,8 +27,8 @@ export class FriendService {
   // u_i:number;
   // f_i:number;
   
-   private apiUrl = 'http://localhost:8000/api';
-  //private apiUrl = 'http://jcwebteste.com.br:8000/api'
+   //private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'http://jcwebteste.com.br:8000/api'
   // private apiUrl = 'http://jcwebteste.com.br:3000/api'
 
   // observavel para mudar o estado do botão de solicitar amizade
