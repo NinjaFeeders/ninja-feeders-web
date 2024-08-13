@@ -3,31 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable, of,BehaviorSubject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { Friend } from './models/model_friends';
 
-
-interface Friends{
-  id:number;
-  user_name:string;
-  user_id:number;
-  friend_id:number;
-  status:string;
-  created_at:string;
-  updated_at:string;
-}
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService {
-  friends:Friends[]=[];
-  // amigos:any[]= [];
-
-  // n:string;
-  // u_i:number;
-  // f_i:number;
+  friends:Friend[]=[];
   
-   //private apiUrl = 'http://localhost:8000/api';
+  
+  // private apiUrl = 'http://localhost:8000/api';
   private apiUrl = 'http://jcwebteste.com.br:8000/api'
   // private apiUrl = 'http://jcwebteste.com.br:3000/api'
 

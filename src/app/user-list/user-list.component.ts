@@ -2,25 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { FriendService } from '../friend.service';
-
-
-
-interface Users{
-  
-  username:string;
-  id: number; // Adiciona o campo ID para associar com o backend
-  isFriend: boolean; // Adiciona o campo isFriend para determinar o estado da amizade
-}
-
-interface Friends{
-  id:number;
-  user_name:string;
-  user_id:number;
-  friend_id:number;
-  status:string;
-  created_at:string;
-  updated_at:string;
-}
+import { Friend } from '../models/model_friends';
+import { Users } from '../models/model_user';
 
 
 @Component({
@@ -28,7 +11,6 @@ interface Friends{
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-
 
 
 export class UserListComponent implements OnInit {
@@ -41,12 +23,10 @@ export class UserListComponent implements OnInit {
   statusConectionUsers:string="Add amigo?";
   colorButton:string="bg-info"
   friend_id:number;
-  friends:Friends[]=[]; // para implementar o desfazer amizade e implementar a alternancia do botão de add para remover
+  friends:Friend[]=[]; // para implementar o desfazer amizade e implementar a alternancia do botão de add para remover
   statusFriend:string;
 
   
-
-
   constructor( 
     private listUsers:AuthService,
      private router:Router, 
@@ -132,17 +112,6 @@ addAmigo(friend_id:number,user_name:string){ // parametro do usuario que o usuar
 
    
   }
-}
-
-// atualizarAmizade(friend_id: number, isFriend: boolean){
-//   const user = this.membrosDaRede.find(u => u.id === friend_id);
-//   if(user){
-//     user.isFriend=isFriend;
-//   }
-// }
-
-desfazerAmizade(){
-
 }
   
 
