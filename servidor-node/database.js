@@ -7,24 +7,24 @@ const createConnection = () => {
   
   // condexão para ambiente de produção
 
-    return mysql.createConnection({
-      host: 'ninjafeeders.mysql.dbaas.com.br',
-      user: 'ninjafeeders',
-      password: 'A@ZuyTc256E',
-      database: 'ninjafeeders',
-      connectTimeout: 10000 // Tempo limite para a conexão em milissegundos (opcional)
-    });
+    // return mysql.createConnection({
+    //   host: 'ninjafeeders.mysql.dbaas.com.br',
+    //   user: 'ninjafeeders',
+    //   password: 'A@ZuyTc256E',
+    //   database: 'ninjafeeders',
+    //   connectTimeout: 10000 // Tempo limite para a conexão em milissegundos (opcional)
+    // });
 
     // conexão para ambiente de desenvolvimento
 
-    // return mysql.createConnection({
-    //   host: 'localhost',
-    //       user: 'root',
-    //       password:'',
-    //       database:'ninjafeeders',
-    //       port: 3307, // essa definição de porta é importante, para usar o DB do wampserver, isso não é necessario para o xamp
-    //   connectTimeout: 10000 // Tempo limite para a conexão em milissegundos (opcional)
-    // });
+    return mysql.createConnection({
+      host: 'localhost',
+          user: 'root',
+          password:'',
+          database:'ninjafeeders',
+          port: 3307, // essa definição de porta é importante, para usar o DB do wampserver, isso não é necessario para o xamp
+      connectTimeout: 10000 // Tempo limite para a conexão em milissegundos (opcional)
+    });
  
  
 };

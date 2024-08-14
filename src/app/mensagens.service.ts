@@ -8,10 +8,10 @@ import { Observable, Subject } from 'rxjs';
 })
 export class MensagensService {
   // url do servidor para endpoint local
-  //private baseUrl = 'http://localhost:8000/api';
+  private baseUrl = 'http://localhost:8000/api';
 
   // url do servidor para endpoint do servidor de produção
-  private baseUrl = 'http://jcwebteste.com.br:8000/api'
+  //private baseUrl = 'http://jcwebteste.com.br:8000/api'
   // private baseUrl = 'http://jcwebteste.com.br:3000/api'
 
 
