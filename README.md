@@ -1,27 +1,45 @@
-# Teste
+# Projeto: Ninjafeeders
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.6.
+Trata-se de um quadro de mensagens com aspectos sociais, semelhante a outras redes sociais, mas com requisitos simplificados. Esse sistema compõe um quadro de mensagens, semelhante à listagem de publicações de uma rede social.
 
-## Development server
+Cada mensagem possui um título de 72 caracteres e um corpo de 280 caracteres.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+A mensagem marcada como privada antes de ser enviada terá sua visibilidade definida como privada. Já a mensagem que o usuário não marcar como privada na hora de enviar, automaticamente será definida como pública e todos os membros da rede poderão visualizar e interagir com ela.
 
-## Code scaffolding
+## Apresentação da Rede Social Ninjafeeders
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 1. Visão Geral:
+Ninjafeeders é uma rede social com o front-end construído em Angular (HTML, CSS, Bootstrap, TypeScript) e o back-end em Node.js (JavaScript), onde os usuários podem compartilhar mensagens, interagir com outros membros, formar amizades, e postar mensagens públicas e privadas.
 
-## Build
+### 2. Funcionalidades Principais:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- **Acesso Inicial:**
+  - **Visualização de Mensagens (Sem Cadastro/Logado):** Ao acessar a página inicial do Ninjafeeders, qualquer usuário pode visualizar as três últimas mensagens postadas na rede. No entanto, essas mensagens são apenas para leitura; sem login, não é possível interagir com elas (dar like, dislike ou enviar novas mensagens).
 
-## Running unit tests
+- **Registro e Login:**
+  - **Registro:** Para participar ativamente na rede, o usuário deve se registrar, fornecendo as informações necessárias.
+  - **Login:** Após o registro, o usuário faz login para acessar todas as funcionalidades da rede.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Interação com Mensagens:**
+  - **Envio de Mensagens:** Usuários logados podem enviar mensagens públicas ou privadas.
+    - **Mensagens Públicas:** Visíveis para todos os membros da rede, independentemente de serem amigos ou não.
+    - **Mensagens Privadas:** Visíveis apenas para amigos do usuário que enviou a mensagem.
+  
+  - **Like e Dislike:** Usuários logados podem curtir ou não curtir mensagens públicas. Podem curtir ou não curtir as mensagens privadas desde que tenham sido postadas por si mesmos ou por seus amigos.
 
-## Running end-to-end tests
+- **Sistema de Amizade:**
+  - **Enviar Solicitação de Amizade:** Usuários logados podem enviar solicitações de amizade para outros membros.
+  - **Receber Solicitações de Amizade:** Usuários podem receber solicitações de amizade de outros membros. As solicitações de amizades aparecerão em um popup no topo da tela quando o usuário a quem foi solicitado fizer login.
+  - **Aceitar ou Recusar Solicitações:** Cada solicitação de amizade recebida pode ser aceita ou recusada.
+  - **Visualização de Mensagens Privadas:** Somente amigos podem visualizar as mensagens privadas uns dos outros.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### 3. Experiência do Usuário:
 
-## Further help
+- **Usuário Não Logado:**
+  - Tem acesso limitado, podendo apenas visualizar as últimas mensagens públicas postadas.
+  - Não pode interagir com as mensagens ou enviar novas mensagens.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- **Usuário Logado:**
+  - Tem acesso total às funcionalidades da rede.
+  - Pode interagir com mensagens públicas, enviar mensagens (públicas ou privadas) e gerenciar suas amizades.
+
