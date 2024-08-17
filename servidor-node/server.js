@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path'); // Módulo para lidar com caminhos de arquivos e diretórios.
-// const port = 8000;
+// const port = 3000;
 const port = 8000;
 
 const usersRoutes = require('./routes/users');
