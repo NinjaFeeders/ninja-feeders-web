@@ -62,3 +62,107 @@ Ninjafeeders é uma rede social com o front-end construído em Angular (HTML, CS
   - Tem acesso total às funcionalidades da rede.
   - Pode interagir com mensagens públicas, enviar mensagens (públicas ou privadas) e gerenciar suas amizades.
  <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/usuario_logado.png?raw=true"/>
+
+
+
+ # Dados tecnicos:
+Ferramentas e configurações  para rodar esse projeto no ambiente de Desenvolvimento
+
+### Vs-code: 
+https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user
+
+### Angular 8.0.3:
+npm install -g @angular/cli@8.0.3 
+
+### Angular CLI 8.0.6:
+npm install -g @angular/cli@8.0.6
+
+### Node: 16.20.2
+https://nodejs.org/dist/v16.20.2/win-x64/node.exe
+
+
+Package                           Version
+-----------------------------------------------------------
+#### @angular-devkit/architect         0.800.6
+#### @angular-devkit/build-angular     0.800.6
+#### @angular-devkit/build-optimizer   0.800.6
+#### @angular-devkit/build-webpack     0.800.6
+#### @angular-devkit/core              8.0.6
+#### @angular-devkit/schematics        8.0.6
+#### @angular/cli                      8.0.6
+#### @ngtools/webpack                  8.0.6
+#### @schematics/angular               8.0.6
+#### @schematics/update                0.800.6
+#### rxjs                              6.4.0
+#### typescript                        3.4.5
+#### webpack                           4.30.0
+
+
+#
+
+na arvore da extrutura abaixo vera uma pasta o arquivo exportado do DB
+	
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/visualizar_msg_semregistroelogin.png?raw=true "a title")
+
+crie um banco de dados no wamp ou no xamp , com o nome “ ninjafeeders ” e import para ele a extrutura das tabelas que esta no no arquivo ninjafeeders.sql
+
+feito isso: no termian dentro da pasta principal do projeto digite cd servidor-node para acessar a pasta do servidor node js, para inicializar o mesmo:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/servidor_node.png?raw=true "a title")
+
+para iniciar o servidor nodejs digite o comando npm start server.js, ou apenas npm start
+se tudo estiver funcionando bem o resultado no terminal  sera igual o da imagem abaixo:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/iniciar_servidor_node.png?raw=true "a title")
+
+caso de algum erro certifique-se que a porta 8000 do windows esteja aberta, caso seja necessario mudar de porta: dentro da pasta do servidor-node abra o arquivo server.js e altere a porta na linha de codigo mostrada na imagem abaixo, para uma porta disponível no seu sistema, 
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/definir_porta_do_servidor.png?raw=true "a title")
+	
+ainda no arquivo server.js, note essa linha de codigo:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/rota_de_exemplo.png?raw=true "a title")
+
+abra um navegador web,  na barra de endereço digite a url: http:\\localhost:8000
+ a msg do res.send( ) aparecera no navegador indicando que o servidor node esta funcionando corretamente, no navegador você tera o seguinte resultado:
+	
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/teste_no_navegador.png?raw=true "a title")
+
+ainda dentro do servidor-node dentro da pasta route, você tem os endpoints, que é onde chegara as requisições para o DB, 
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/servidor_node_pasta_router.png?raw=true "a title")
+
+abrindo esses arquivos você tera acesso aos endpoints,  que nos possibilita fazer alguns teste pra ver a comunicão com o DB, por exemplo: dentro do arquivo messages.js, temos o seguinte:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/endpoint_mensgens.png?raw=true "a title")
+	
+se irmos no navegador e digitar aquela url que testamos antes mais o prefixo de rota /api mais o nome do end point, teremos a seguinte url **http:\\localhost:8000\api\mensgens** , se colocarmos no navegador e dar enter, teremos o seguinte resultado:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/teste_endpoint.png?raw=true "a title")
+
+ele nos retorna todos os dados recuperado pela requisição dessa rota,  isso nos garante que até aqui tudo funcionou como deveria.
+
+
+Até aqui iniciamos o backend da nossa aplicação.
+
+Iniciando o front end da aplicação:
+
+no terminal do vs code, dentro da pasta do projeto ninja-feeders-web:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/iniciar_front_end.png?raw=true "a title")
+
+digite ng serve
+
+devemos ter esse resultado:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/abrintdo_aplicacao.png?raw=true "a title")
+
+até aqui tudo correu bem, segure o control, e click com o botão esquerdo do mouse, na url:
+**http://localhost:4200**
+
+e o resultado devera ser esse:
+
+![Alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_como_rodar_aplicacao/aplicacao_aberta.png?raw=true "a title")
+
+pronto! Basta se registrar, fazer login e poderá testar a aplicação
+
