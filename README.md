@@ -23,8 +23,7 @@ Ninjafeeders é uma rede social com o front-end construído em Angular (HTML, CS
 #
 - **Registro e Login:**
   - **Registro:** Para participar ativamente na rede, o usuário deve se registrar, fornecendo as informações necessárias.
-- ![alt text]( "Title")
-- <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/registro.png?raw=true"/>
+- <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/registro.png?raw=true"/>
   - 
 #
   - **Login:** Após o registro, o usuário faz login para acessar todas as funcionalidades da rede.
