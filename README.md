@@ -17,7 +17,6 @@ Ninjafeeders é uma rede social com o front-end construído em Angular (HTML, CS
 - **Acesso Inicial:**
   - **Visualização de Mensagens (Sem Cadastro/Logado):** Ao acessar a página inicial do Ninjafeeders, qualquer usuário pode visualizar as três últimas mensagens postadas na rede. No entanto, essas mensagens são apenas para leitura; sem login, não é possível interagir com elas (dar like, dislike ou enviar novas mensagens).
     
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/visualizar_msg_semregistroelogin.png?raw=tru "Title")
 - <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/visualizar_msg_semregistroelogin.png?raw=true"/>
 
 
