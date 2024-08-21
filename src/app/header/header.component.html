@@ -1,31 +1,39 @@
-<header class="container-fluid">
+<header class="container-fluid  border__header">
     <div class="row">
+
+        <div >
+
+            <div class="col-12  pt-3 text-center nav-item">
+                <a class="nav-link text__boasVindas__logout" routerLink="">
+                    <h1>NinjaFeeders</h1>
+                </a>
+            </div>
+
+            <!-- apresenta o nome do usuario depois que ele estiver logado-->
+            <div class="col  p-0 d-flex justify-content-end  ">
+                <div *ngIf="isLoggedIn" class="mt-1 " ><h6 class="text__boasVindas__logout">Bem-vindo, {{ username }}</h6></div>
+            </div>
+        </div>
         
         
-        <div class="col-12  p-3 text-center nav-item">
-            <a class="nav-link" routerLink=""><h1 >NinjaFeeders</h1></a>      
-        </div>
-       
-               <!-- apresenta o nome do usuario depois que ele estiver logado-->
+      
 
-        <div class="col-auto">
-            <div class="menu-icon" (click)="toggleMenuClicked()">☰</div>
-          </div>
-        <div class="col border-bottom p-2 d-flex justify-content-end ">
-            <div *ngIf="isLoggedIn" class="m-1">Bem-vindo, {{ username }}</div>
+        <!-- fim do codigo apresentação do nome do usuario-->
+       
+
+        <div class="col  d-flex justify-content-end  ">
+            <span *ngIf="!isLoggedIn" class="m-1"><a class="btn button__log_in_out_reg text__boasVindas__logout" routerLink="/login">login</a></span>
+            <span *ngIf="!isLoggedIn" class="m-1"> <a class="btn button__log_in_out_reg text__boasVindas__logout" routerLink="/registeruser"> register</a> </span>
+            <button type="button" *ngIf="isLoggedIn" class=" btn button__log_in_out_reg text__boasVindas__logout" (click)="logout()">Logout</button>
         </div>
-                <!-- fim do codigo apresentação do nome do usuario-->
 
         
-        <div class="col border-bottom p-2 d-flex justify-content-end ">
-            <span *ngIf="!isLoggedIn" class="m-1"><a class="nav-link" routerLink="/login">login</a></span>
-            <span  *ngIf="!isLoggedIn" class="m-1" >   <a class="nav-link" routerLink="/registeruser"> register</a> </span>
-            <button type="button" *ngIf="isLoggedIn" class="m-1 btn" (click)="logout()">Logout</button>
-        </div>
 
-       
-       
 
 
     </div>
+    <div class="col-auto">
+        <div class="menu-icon text__boasVindas__logout" (click)="toggleMenuClicked() ">☰</div>
+    </div>
+    
 </header>

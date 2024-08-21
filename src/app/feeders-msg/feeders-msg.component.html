@@ -1,7 +1,7 @@
 <main class="container-fluid p-0" style="margin-bottom: 161px;">
   <section class="wrapper d-flex flex-column min-vh-10 m-1 p-3">
-    <div class="border-bottom text-center gap">
-      <h4 class="nome-do-usuario">Mensagens Públicas</h4>
+    <div class=" text-end gap">
+      <h4 class="nome-do-usuario">Mensagens</h4>
     </div>
     <article class="wrapper flex-grow-1">
       <div class="d-flex flex-column pt-3">
@@ -41,16 +41,16 @@
 
           <!-- botões de like e deslike-->
           <div class="mt-1 d-flex justify-content-end w-100">
-            <div class="d-flex justify-content-around">
-              <div class="me-2">
+            <div class="d-flex justify-content-around lk__dlk__container">
+              <div class="me-2 ">
                 <button class="btn btn-outline-danger border-0" (click)="deslike(message.id)">
                   <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" />
                   {{ message.deslikes }}
-                </button>
-                <span class="ms-5 me-5 fs-4" [ngClass]="{'positive':message.pontos > 0, 'negative':message.pontos < 0,'neutro':message.pontos == 0}">
-                  {{ message.pontos}} {{ message.pontos == -1 || message.pontos ==0 || message.pontos ==1 ? 'ponto' : 'pontos' }} 
-                </span>
+                </button>               
               </div>
+              <span class="ms-5 me-5 fs-4  text-center" [ngClass]="{'positive':message.pontos > 0, 'negative':message.pontos < 0,'neutro':message.pontos == 0}">
+                {{ message.pontos}} {{ message.pontos == -1 || message.pontos ==0 || message.pontos ==1 ? 'ponto' : 'pontos' }} 
+              </span>
               <div class="me-2">
                 <button class="btn btn-outline-info border-0" (click)="like(message.id)">
                   <img width="50px" src="../../assets/like/gostar.png" />
@@ -66,10 +66,12 @@
     </article>
 
     <!-- botões de paginação-->
-    <div class="d-flex justify-content-between p-3">
-      <button class="btn btn-primary p-2" style="width: 10%;" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-      <span>Página {{ currentPage }} de {{ totalPages }}</span>
-      <button class="btn btn-primary p-2" style="width: 10%;" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
+    <div class="row mb-5">
+      <div class="col-12 d-flex justify-content-between">
+      <button class="btn btn-primary p-2 button__width  " (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }}/{{ totalPages }}</span>
+      <button class="btn btn-primary p-2 button__width  "  (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
+    </div>
     </div>
   </section>
 </main>

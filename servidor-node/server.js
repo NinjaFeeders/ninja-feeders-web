@@ -25,9 +25,15 @@ app.use('/api', friendsRoutes);
 
 
 
-// Rota de exemplo que aparece no teste do navegador
+// Rota de exemplo que aparece no teste do navegador resposta do teste de url no ambiente de desenvolvimento
+// app.get('/', (req, res) => {
+//   res.send(` Servidor Node.js rota de texte:  para ninjafeeders rodando com sucesso! no localhost na porta: ${port}`);
+// });
+
+// Rota de exemplo que aparece no teste do navegador resposta do teste de url no ambiente de produção
+
 app.get('/', (req, res) => {
-  res.send(` Servidor Node.js rota de texte:  para ninjafeeders rodando com sucesso! no localhost na porta: ${port}`);
+  res.send(` Servidor Node.js rota de texte:  para ninjafeeders rodando com sucesso! no localhost--server--Localweb na porta: ${port}`);
 });
 
 // Middleware para servir arquivos estáticos da aplicação Angular

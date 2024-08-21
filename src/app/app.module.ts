@@ -9,8 +9,6 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { HttpClientModule } from '@angular/common/http';// Importação do HttpClientModule para importar metodo http para os serviços
-import { MsgSelectTypeMessageModule } from './msg-select-type-message/msg-select-type-message.module';
-import { MsgPrivateRoomComponent } from './msg-private-room/msg-private-room/msg-private-room.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CommonModule } from '@angular/common';
 import { MensagensService } from './mensagens.service';
@@ -36,7 +34,6 @@ import { NotificationComponent } from './notification/notification.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MsgSelectTypeMessageModule,
     CommonModule
     //MsgPrivateRoomModule  como estamos usango lazy loadin pra esse modulo não precisamos importa-lo  aqui
 

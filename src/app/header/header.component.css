@@ -6,6 +6,21 @@
     font-size: 24px;
   }
 
+  .border__header{
+    border-bottom: solid 5px rgb(27, 134, 222);
+    box-shadow: 0px 0px 10px  black;
+  }
+
+  .text__boasVindas__logout{
+    text-shadow: 0px 0px 2px rgb(0, 183, 255);
+  }
+  .button__log_in_out_reg{
+    border:solid 1px black;
+    width: 100px;
+    box-shadow: 0px 0px 2px 1px rgb(0, 183, 255) ;
+    margin-bottom: 7px;
+  }
+
   /* CSS para ocultar a lista de usuários e mostrar o botão hambúrguer quando a largura for menor que 700px */
 @media (max-width: 700px) {
     .menu-icon {
@@ -19,6 +34,8 @@
     .user-logados.expanded {
       display: block !important;
     }
+
+   
   }
   
   /* CSS para exibir a lista de usuários e ocultar o botão hambúrguer quando a largura for maior que 700px */

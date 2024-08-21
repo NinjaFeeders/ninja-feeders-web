@@ -1,53 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
 .collapsed {
-    display: -webkit-box;
-    -webkit-line-clamp: 3; 
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 
-  .user-logados{
-    z-index: 1; 
-    float: left;
-    padding: 1%;
-   
-    height: 90rem;
-    /* border: solid 5px black; */
+.user-logados {
+  z-index: 1;
+  float: left;
+  padding: 1%;
 
-  }
+  height: 90rem;
+  /* border: solid 5px black; */
 
-  .users-visiveis{
-    border: solid 5px rgb(134, 0, 183);
-   
-    background: rgb(224, 220, 228);
-    
-  }
+}
 
-  .nome-do-usuario{
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-  }
+.users-visiveis {
+  border: solid 5px rgb(134, 0, 183);
 
-  /* codigo usado para alternar a cor da pontuação da mensagem */
-  .positive {
-    color:rgb(32, 174, 60);
-  }
+  background: rgb(224, 220, 228);
 
-  .neutro{
-    color:dodgerblue;
-  }
+}
+
+.nome-do-usuario {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* codigo usado para alternar a cor da pontuação da mensagem */
+.positive {
+  color: rgb(32, 174, 60);
+}
+
+.neutro {
+  color: dodgerblue;
+}
+
+.negative {
+  color: red;
+}
+
+.lk__dlk__container {
+  /* border: solid 1px black; */
+  box-sizing: border-box;
   
-  .negative {
-    color: red;
+  
+}
+
+@media(max-width:600px) {
+  .button__width {
+    width: 120px;
   }
-  
-  
+}
+
+@media(min-width:600px) {
+  .button__width {
+    width: 200px;
+  }
+}

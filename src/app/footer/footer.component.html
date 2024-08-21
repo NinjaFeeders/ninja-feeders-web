@@ -1,11 +1,11 @@
-<footer class="container-fluid position-fixed bottom-0 start-0 w-100 border-top ">
+<footer class="container-fluid position-fixed bottom-0 start-0 w-100 border__footer ">
 
 
-    <div class="row d-flex justify-content-center bg-light">
+    <div class="row d-flex justify-content-center bg-light ">
 
-        <form class="col-8  p-3 text-center " (ngSubmit)="registerMsgComp()">
-            <div class="form-floating  input-group w-100 mb-2 ">
-                <textarea class="form-control h-50 rounded-pill" type="text" id="msg" name="msg" required
+        <form class="  p-3 text-center  p-0 message__input__container " (ngSubmit)="registerMsgComp()">
+            <div class="form-floating  input-group w-100 mb-2  ">
+                <textarea class="form-control h-50 rounded-pill border___textarea" type="text" id="msg" name="msg" required
                     [(ngModel)]="msg" maxlength="280"
                     (input)="contCaractereTextArea()"></textarea><!-- o maxlingth = "280 limita a text ares pra permitir que seja digitado apenos 280 caracteres"-->
 
@@ -17,7 +17,7 @@
                 <div class="col col-sm-4  ">
                     <div class="d-flex flex-column w-100  ">
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary w-75 ">Enviar</button>
+                            <button type="submit" class="btn btn-primary button__width ">Enviar</button>
                         </div>
                        <div>
                         <small class="text-muted fs-6 "> 280/ {{contagenCaractere}}</small>

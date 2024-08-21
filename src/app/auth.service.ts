@@ -8,8 +8,11 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-     private baseUrl = 'http://localhost:8000/api';
-   // private baseUrl = 'http://jcwebteste.com.br:8000/api'
+  // url do servidor para endpoint local
+   //  private baseUrl = 'http://localhost:8000/api';
+
+     // url do servidor para endpoint do servidor de produção
+   private baseUrl = 'http://jcwebteste.com.br:8000/api'
   //  private baseUrl = 'http://jcwebteste.com.br:3000/api'
 
   private tokenKey = 'authToken';

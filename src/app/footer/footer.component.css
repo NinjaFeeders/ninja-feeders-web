@@ -1,0 +1,49 @@
+
+/* largura do botão enviar mensagens*/
+@media(max-width:600px){
+    .button__width{
+      width: 100px;
+    }
+  }
+  @media(min-width:600px){
+    .button__width{
+      width: 120px;
+    }
+  }
+
+
+  /* largura do container de enviar  mensagnes */
+
+  
+  @media(max-width:800px){
+    .message__input__container{
+        width: 100%;
+    }
+  }
+
+  @media(min-width:801px) and (max-width:1199px){
+    .message__input__container{
+        width: 70%;
+        
+    }
+  }
+
+  @media(min-width:1200px){
+    .message__input__container{
+        width: 65%;
+        margin-top: 20px;
+        
+    }
+  }
+  
+.border__footer{
+  border-top: solid 2px rgb(27, 134, 222);
+  box-shadow: 0px 0px 10px  black;
+}
+
+.border___textarea{
+ 
+  box-shadow: 0px 0px 8px rgb(0, 92, 203);
+  margin-bottom: 8px;
+}
+  

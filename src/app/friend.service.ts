@@ -13,9 +13,11 @@ import { Friend } from './models/model_friends';
 export class FriendService {
   friends:Friend[]=[];
   
-  
-   private apiUrl = 'http://localhost:8000/api';
-  //private apiUrl = 'http://jcwebteste.com.br:8000/api'
+    // url do servidor para endpoint local
+   //private apiUrl = 'http://localhost:8000/api';
+
+     // url do servidor para endpoint do servidor de produção
+  private apiUrl = 'http://jcwebteste.com.br:8000/api'
   // private apiUrl = 'http://jcwebteste.com.br:3000/api'
 
   // observavel para mudar o estado do botão de solicitar amizade
