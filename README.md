@@ -27,7 +27,7 @@ Ninjafeeders é uma rede social com o front-end construído em Angular (HTML, CS
   - 
 #
   - **Login:** Após o registro, o usuário faz login para acessar todas as funcionalidades da rede.
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/login.png?raw=true "Title")
+  <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/login.png?raw=true"/>
 
 #
 - **Interação com Mensagens:**
@@ -36,21 +36,19 @@ Ninjafeeders é uma rede social com o front-end construído em Angular (HTML, CS
     - **Mensagens Privadas:** Visíveis apenas para amigos do usuário que enviou a mensagem.
    
     
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/postar_msg.png?raw=true "Title")
-
+ <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/postar_msg.png?raw=true"/>
 #
   - **Like e Dislike:** Usuários logados podem curtir ou não curtir mensagens públicas. Podem curtir ou não curtir as mensagens privadas desde que tenham sido postadas por si mesmos ou por seus amigos.
   
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/like%20deslike.png?raw=true "Title")
+-  <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/like%20deslike.png?raw=true"/>
 #
 - **Sistema de Amizade:**
   - **Enviar Solicitação de Amizade:** Usuários logados podem enviar solicitações de amizade para outros membros.
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/add_amizade.png?raw=true "Title")
+-  <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/add_amizade.png?raw=true"/>
 #
 - **Receber Solicitações de Amizade:** Usuários podem receber solicitações de amizade de outros membros. As solicitações de amizades aparecerão em um popup no topo da tela quando o usuário a quem foi solicitado fizer login.
   - **Aceitar ou Recusar Solicitações:** Cada solicitação de amizade recebida pode ser aceita ou recusada.
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/aceitar_ou_recusar_amizade.png?raw=true "Title")
-
+ <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/aceitar_ou_recusar_amizade.png?raw=true"/>
   - **Visualização de Mensagens Privadas:** Somente amigos podem visualizar as mensagens privadas uns dos outros.
 
 ### 3. Experiência do Usuário:
@@ -58,11 +56,9 @@ Ninjafeeders é uma rede social com o front-end construído em Angular (HTML, CS
 - **Usuário Não Logado:**
   - Tem acesso limitado, podendo apenas visualizar as últimas mensagens públicas postadas.
   - Não pode interagir com as mensagens ou enviar novas mensagens.
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/usuario_nao_logado.png?raw=true "Title")
-
+ <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/usuario_nao_logado.png?raw=true"/>
 
 - **Usuário Logado:**
   - Tem acesso total às funcionalidades da rede.
   - Pode interagir com mensagens públicas, enviar mensagens (públicas ou privadas) e gerenciar suas amizades.
-- ![alt text](https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/usuario_logado.png?raw=true "Title")
-
+ <img src="https://github.com/NinjaFeeders/ninja-feeders-web/blob/master/src/assets/img_readme/img_aplicacao/usuario_logado.png?raw=true"/>
