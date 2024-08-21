@@ -13,6 +13,10 @@
 }
 
 
+.text__membros{ /* corrige o lainhamento da margin top da div de user_list e da margem do componente mensagens*/
+ padding-top: 20px;
+}
+
 .clicavel{
   cursor: pointer;
 }
@@ -24,6 +28,10 @@
   float: left;
   padding: 0%;
   height: 90%;
+
+    /* Ocupa toda a altura da tela */
+   /* Certifique-se de que o valor é maior do que o conteúdo principal */
+ 
 
 }
 .user-logados:hover{
@@ -45,6 +53,8 @@
 
 .user-logados.expanded {
   display: block !important;
+  
+ 
 }
 
 /* estilo para dimensionar a coluna da lista de usuario comforme a largura da pagina*/
@@ -87,6 +97,9 @@
     max-height: 150vh; /* Limita a altura máxima ao viewport */
     overflow-y: auto; /* Adiciona barra de rolagem vertical */
     padding-bottom: 200px;
+    top: 13rem;
+  position: absolute;
+  height: 100vh;
 }
 
 

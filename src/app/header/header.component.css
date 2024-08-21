@@ -9,8 +9,10 @@
   .border__header{
     border-bottom: solid 5px rgb(27, 134, 222);
     box-shadow: 0px 0px 10px  black;
+
   }
 
+  
   .text__boasVindas__logout{
     text-shadow: 0px 0px 2px rgb(0, 183, 255);
   }
