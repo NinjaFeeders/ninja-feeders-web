@@ -3,11 +3,15 @@
 
     <div class="row d-flex justify-content-center bg-light ">
 
-        <form class="  p-3 text-center  p-0 message__input__container " (ngSubmit)="registerMsgComp()">
+        <form class=" formulario  p-3 text-center  p-0 message__input__container " (ngSubmit)="registerMsgComp()">
             <div class="form-floating  input-group w-100 mb-2  ">
-                <textarea class="form-control h-50 rounded-pill border___textarea" type="text" id="msg" name="msg" required
-                    [(ngModel)]="msg" maxlength="280"
-                    (input)="contCaractereTextArea()"></textarea><!-- o maxlingth = "280 limita a text ares pra permitir que seja digitado apenos 280 caracteres"-->
+                <!-- o atributo max-length dentro do text area, impede que seja digitado mais caractere do que foi definido em max-length-->
+                <textarea class=" text__area form-control h-50 rounded-pill border___textarea" type="text" id="msg" name="msg" required
+                    [(ngModel)]="msg" maxlength="280" (ngModelChange)="contCaractereTextArea()"></textarea>
+                    <!-- O evento (noModelChange) no elemento <textarea> dispara a função 
+                        contCaractereTextArea() sempre que o usuário digita algo.
+                    e cada caractere digitado no text area, e almenta em +1 o vlor da var msg.length
+                    que é usada para definir o valor da var cantagenCaractere -->
 
                 <label for="msg" class="pt-4 text-muted fs-4">Mensagens: max caracteres 280, titulo automatico com os
                     primeiros 72 caracteres</label>
@@ -16,11 +20,15 @@
             <div class="row justify-content-center">
                 <div class="col col-sm-4  ">
                     <div class="d-flex flex-column w-100  ">
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary button__width ">Enviar</button>
+                        <div class="col-12 text-center  ">
+                            <button type="submit" class="btn btn-primary button__width desktop__button " translate="no">Enviar</button>
+                        </div>
+
+                        <div class="col-12 text-center ">
+                            <button type="submit" class="btn btn-primary  smartphone__button  " translate="no">   <i class="material-icons">send</i></button>
                         </div>
                        <div>
-                        <small class="text-muted fs-6 "> 280/ {{contagenCaractere}}</small>
+                        <small class="text-muted fs-6 " translate="no"  > 280/ {{contagenCaractere}}</small>
                         <!-- mostra a contagem dos caracteres-->
                        </div>
                         
@@ -30,7 +38,7 @@
                     <div class="d-flex  justify-content-center align-items-center">
                         <input class="me-1" type="checkbox" id="privateCheckbox" [(ngModel)]="isPrivate"
                             name="isPrivate" />
-                        <label for="privateCheckbox" class=" text-muted fs-4">mensagem privada</label>
+                        <label for="privateCheckbox" class=" text-muted fs-4" translate="no">mensagem privada</label>
                     </div>
                 </div>
             </div>

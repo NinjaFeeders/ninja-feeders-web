@@ -5,6 +5,49 @@
   padding: 0;
 }
 
+.container__msg{
+  
+  max-width:100%;
+    box-sizing: border-box;
+}
+
+.container__img__autor___msg{
+  border-radius: 50px;
+  box-shadow: 0px 0px 5px black;
+}
+
+.container__img__autor{
+  text-shadow: 1px 1px 1px rgb(0, 195, 230);
+  padding: 5px;
+  
+}
+
+.container__msg__p{
+  font-size: 1.5em;
+   /* Define a altura máxima para 3 linhas */
+   max-height: 4.5em; /* Ajuste conforme necessário */
+      
+   /* Garante que o texto não ultrapasse o container */
+   overflow: hidden;
+   
+   /* Adiciona reticências quando o texto é truncado */
+   text-overflow: ellipsis;
+   
+   /* Configura o container para layout de bloco */
+   display: block;
+   
+   /* Garante que o texto quebra corretamente */
+   white-space: normal;
+   
+   /* Define a altura da linha para cálculo de altura máxima */
+   line-height: 1.5; /* Ajuste conforme necessário */
+   
+   /* Garante que o texto não se expanda além do container */
+   word-break: break-word; /* Para quebrar palavras longas */
+}
+
+
+
 .collapsed {
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -67,4 +110,22 @@
   .button__width {
     width: 200px;
   }
+}
+
+@media(max-width:600px) {
+  
+  .container__msg__p{
+    font-size: 1em;
+     /* Define a altura máxima para 3 linhas */
+     max-height: 6em; /* Ajuste conforme necessário */
+        
+     
+     width: 90%;
+     /* Define a altura da linha para cálculo de altura máxima */
+     line-height: 2em; /* Ajuste conforme necessário */
+     
+     
+  }
+  
+  
 }

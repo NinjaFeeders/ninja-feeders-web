@@ -18,13 +18,36 @@
   }
   .button__log_in_out_reg{
     border:solid 1px black;
-    width: 100px;
+    width: 8vw;
     box-shadow: 0px 0px 2px 1px rgb(0, 183, 255) ;
     margin-bottom: 7px;
   }
 
+  
+
   /* CSS para ocultar a lista de usuários e mostrar o botão hambúrguer quando a largura for menor que 700px */
+  @media(max-width:1350px){
+    .button__log_in_out_reg{
+      border:solid 1px black;
+      width: 110px;
+      box-shadow: 0px 0px 2px 1px rgb(0, 183, 255) ;
+      margin-bottom: 7px;
+    }
+  }
+
+  .alinhamento__button__tela__Pequena{
+      
+    justify-content: end;
+    
+  }
+  @media(max-width:900px){
+    .alinhamento__button__tela__Pequena{
+      
+      justify-content: center;
+    }
+  }
 @media (max-width: 700px) {
+  
     .menu-icon {
       display: block;
     }

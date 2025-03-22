@@ -1,19 +1,20 @@
-<header class="container-fluid  border__header">
-    <div class="row">
+<header class="container-fluid  border__header ">
+    <div class="row ">
 
-        <div >
+      
 
-            <div class="col-12  pt-3 text-center nav-item">
+            <div class="col-12  pt-3 text-center ">
                 <a class="nav-link text__boasVindas__logout" routerLink="">
-                    <h1>NinjaFeeders</h1>
+                    <h1 translate="no">NinjaFeeders</h1>
                 </a>
             </div>
 
             <!-- apresenta o nome do usuario depois que ele estiver logado-->
-            <div class="col  p-0 d-flex justify-content-end  ">
-                <div *ngIf="isLoggedIn" class="mt-1 " ><h6 class="text__boasVindas__logout">Bem-vindo, {{ username }}</h6></div>
+            <div class="col  p-0 d-flex justify-content-end ">
+                <!-- se isLoggedIn == true exibe o nome o usuario logado, atraves da var username-->
+                <div *ngIf="isLoggedIn"  ><h6 class="text__boasVindas__logout">Bem-vindo, {{ username }}</h6></div>
             </div>
-        </div>
+      
         
         
       
@@ -21,10 +22,12 @@
         <!-- fim do codigo apresentação do nome do usuario-->
        
 
-        <div class="col  d-flex justify-content-end  ">
-            <span *ngIf="!isLoggedIn" class="m-1"><a class="btn button__log_in_out_reg text__boasVindas__logout" routerLink="/login">login</a></span>
-            <span *ngIf="!isLoggedIn" class="m-1"> <a class="btn button__log_in_out_reg text__boasVindas__logout" routerLink="/registeruser"> register</a> </span>
-            <button type="button" *ngIf="isLoggedIn" class=" btn button__log_in_out_reg text__boasVindas__logout" (click)="logout()">Logout</button>
+        <div class="col  d-flex  alinhamento__button__tela__Pequena  ">
+            <!-- quando isLoggedIn == negado ou false vai aparacer o botão para login ou registro de usuario   -->
+            <span translate="no"  *ngIf="!isLoggedIn" class="m-1"><a class="btn button__log_in_out_reg text__boasVindas__logout" routerLink="/login">login</a></span><!--navega para pagina de login-->
+            <span  translate="no" *ngIf="!isLoggedIn" class="m-1"> <a class="btn button__log_in_out_reg text__boasVindas__logout" routerLink="/registeruser"> register</a> </span> <!-- navega para pagina de logout-->
+                       <!-- quando isLoggedIn == true vai aparacer o botão para logout e sumir o login e  registro de usuario   -->
+            <button translate="no" type="button" *ngIf="isLoggedIn" class=" btn button__log_in_out_reg text__boasVindas__logout" (click)="logout()">Logout</button>
         </div>
 
         
@@ -32,8 +35,11 @@
 
 
     </div>
-    <div class="col-auto">
-        <div class="menu-icon text__boasVindas__logout" (click)="toggleMenuClicked() ">☰</div>
+    <div class="col-auto"> <!-- aqui fica o icone do menu hamburguer e o chamado da função 
+                            que tooglemenuclickd() que emite um evento eventEmitter 
+                            "que nos nomeamos como toogleMenu no heder.comonent.ts"  para o componente pai app.component onde 
+                        toogle menu é escutado e chama o metodo de também de nome toogleMenu() -->
+        <div class="menu-icon text__boasVindas__logout " (click)="toggleMenuClicked() ">☰</div>
     </div>
     
 </header>

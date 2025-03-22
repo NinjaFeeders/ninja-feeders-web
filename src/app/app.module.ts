@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { MensagensService } from './mensagens.service';
 import { AuthService } from './auth.service';
 import { NotificationComponent } from './notification/notification.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import { MsgPrivateRoomModule } from './msg-private-room/msg-private-room.module';
 
 
@@ -34,8 +35,8 @@ import { NotificationComponent } from './notification/notification.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
-    //MsgPrivateRoomModule  como estamos usango lazy loadin pra esse modulo não precisamos importa-lo  aqui
+    CommonModule,
+    BrowserAnimationsModule
 
   ],
   exports:[

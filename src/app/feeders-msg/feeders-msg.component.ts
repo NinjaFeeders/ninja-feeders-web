@@ -3,7 +3,7 @@ import { stringify } from 'querystring';
 import { AuthService } from '../auth.service';
 import { MensagensService } from '../mensagens.service';
 import { Friend } from '../models/model_friends';
-import {Message}from'../models/model_messages';
+import { Message } from '../models/model_messages';
 
 
 
@@ -54,11 +54,17 @@ export class FeedersMsgComponent implements OnInit {
       }
     });
     this.loadMSG();
-    this.getfriend();
+    this.getfriend();  // carregada apenad para fim de testes
   }
 
 
   loadMSG() {
+    /** 
+     *  O código está garantindo que o usuário atual veja:
+        Todas as mensagens públicas.
+        Suas próprias mensagens.
+        Mensagens dos amigos com base em uma lista de amigos.
+     */
     this.isUserLoggedin = this.listUsers.isAuthenticated();
     const userId = Number(this.listUsers.getIdUser());
 
@@ -83,7 +89,7 @@ export class FeedersMsgComponent implements OnInit {
           this.totalPages = Math.ceil(this.messages.length / this.itemsPerPage);
         });
       });
-    } else {
+    } else { // carrega apenas as 3 mensagens publicas  mais recente
       this.listMSG.getAllmessage().subscribe(data => {
         this.messages = data
           .filter(message => message.visibilidade_msg === 'public')
@@ -107,7 +113,7 @@ export class FeedersMsgComponent implements OnInit {
 
   moveTopMessageToTop() { // Identifica a mensagem com a maior pontuação e a move para o topo 
     if (this.messages.length > 0) {
-      let topMessageIndex = 0;
+      let topMessageIndex = 0; 
       let maxPontos = this.messages[0].pontos;
 
       // Encontrar a mensagem com a maior pontuação
@@ -120,7 +126,7 @@ export class FeedersMsgComponent implements OnInit {
       // Se a mensagem de maior pontuação não estiver no topo, mova-a para o topo
       if (topMessageIndex > 0) {
         const topMessage = this.messages.splice(topMessageIndex, 1)[0];
-        this.messages.unshift(topMessage); // Move a mensagem de maior pontuação para o topo
+        this.messages.unshift(topMessage); // Move a mensagem de maior pontuação para o topo do array messages[]
 
         // Reordenar o array expandedMessages para sincronizar com a nova ordem de messages
         const movedExpansionState = this.expandedMessages.splice(topMessageIndex, 1)[0];
@@ -139,6 +145,7 @@ export class FeedersMsgComponent implements OnInit {
 
 
 
+  // paginação das mensagens
 
   get paginatedMessages(): Message[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -230,7 +237,7 @@ export class FeedersMsgComponent implements OnInit {
 
 
   getfriend() {
-    const id = Number(this.listUsers.getIdUser());
+    const id = Number(this.listUsers.getIdUser()); // 
     console.log(`getFriend: ${id} `);
     console.log(typeof id);
     this.listMSG.getUserFriends(id).subscribe(data => {

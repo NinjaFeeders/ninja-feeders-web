@@ -1,40 +1,50 @@
 <main class="container-fluid p-0" style="margin-bottom: 161px;">
   <section class="wrapper d-flex flex-column min-vh-10 m-1 p-3">
     <div class=" text-end gap">
-      <h4 class="nome-do-usuario">Mensagens</h4>
+      <h4 class="nome-do-usuario container__img__autor pe-5 ">Mensagens</h4>
     </div>
     <article class="wrapper flex-grow-1">
       <div class="d-flex flex-column pt-3">
 
         <!-- listagem da mensagens  -->
         <div class="m-2 border-top border-bottom p-3" *ngFor="let message of paginatedMessages; let i = index">
-          <div class="d-flex flex-row justify-content-between">
-           
-            <div class="bg-info ps-3 pe-3 border border-2 border-dark rounded-circle">
-              <img class="mt-2 rounded-circle" width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
-              <h6 class="card-title ms-2 mb-2 me-2">{{ message.autor }}</h6>
-            </div>
-            <div>
-              <h5>{{message.visibilidade_msg}}</h5>
-            </div>
+          <div class="d-flex flex-row justify-content-between ">
 
-            <div>
-              <h5>{{message.criada_em | date:'dd/MM/yyyy'}}</h5>
+            <div class="d-flex flex-column justify-content-center align-items-start ">
+              <div class="bg-info p-2 border border-2 border-dark container__img__autor___msg">
+                <img class=" rounded-circle" width="50px" src="../../assets/userPerfil/usuario-de-perfil.png" alt="...">
+
+              </div>
+              <h5 class="card-title ms-1  p-1    container__img__autor container__msg__p "><strong translate="no">{{ message.autor }}</strong></h5>
             </div>
+          
+              <h5 class="container__img__autor">{{message.visibilidade_msg}}</h5>
+
+           
+              <h5 class="container__img__autor">{{message.criada_em | date:'dd/MM/yyyy'}}</h5>
           </div>
-          <div class="card-body">
-            <h4 class="m-1 user-select-none" style="cursor: pointer;" (click)="toggleExpand(getMessageIndex(i))">
-              Título: {{ message.titulomsg }}
-            </h4>
-            <div *ngIf="isExpanded(getMessageIndex(i))">
-              <p class="card-text fs-4" [style.max-height]="isExpanded(getMessageIndex(i)) ? 'none' : '4.5em'" [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">
+          <div class="card-body ">
+            <div class="d-flex flex-column ">
+              <h3 class="m-1 fs-5 container__msg__p" style="cursor: pointer;"
+                (click)="toggleExpand(getMessageIndex(i))">
+                <strong class="container__img__autor">Título:</strong><strong> {{ message.titulomsg }}</strong>
+              </h3>
+            </div>
+            <div class="d-flex flex-column container__msg" *ngIf="isExpanded(getMessageIndex(i))">
+              <p class="card-text container__msg__p "
+                [style.max-height]="isExpanded(getMessageIndex(i)) ? 'none' : '4.5em'"
+                [style.overflow]="isExpanded(getMessageIndex(i)) ? 'visible' : 'hidden'">
                 {{ message.msg }}
               </p>
             </div>
             <div class="text-center">
-              <small type="button" (click)="toggleExpand(getMessageIndex(i))" class="expand-toggle" style="cursor: pointer;">
-                <img *ngIf="!isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-baixo2.png" alt="Expandir" width="60" height="24">
-                <img *ngIf="isExpanded(getMessageIndex(i))" src="../../assets/expandir_contrair_msg/chevron-para-cima2.png" alt="Contrair" width="60" height="24">
+              <small type="button" (click)="toggleExpand(getMessageIndex(i))" class="expand-toggle"
+                style="cursor: pointer;">
+                <img *ngIf="!isExpanded(getMessageIndex(i))"
+                  src="../../assets/expandir_contrair_msg/chevron-para-baixo2.png" alt="Expandir" width="60"
+                  height="24">
+                <img *ngIf="isExpanded(getMessageIndex(i))"
+                  src="../../assets/expandir_contrair_msg/chevron-para-cima2.png" alt="Contrair" width="60" height="24">
               </small>
             </div>
           </div>
@@ -46,12 +56,14 @@
                 <button class="btn btn-outline-danger border-0" (click)="deslike(message.id)">
                   <img width="50px" src="../../assets/like/nao-gosto-de-simbolo.png" />
                   {{ message.deslikes }}
-                </button>               
+                </button>
               </div>
-              <span class="ms-5 me-5 fs-4  text-center" [ngClass]="{'positive':message.pontos > 0, 'negative':message.pontos < 0,'neutro':message.pontos == 0}">
-                {{ message.pontos}} {{ message.pontos == -1 || message.pontos ==0 || message.pontos ==1 ? 'ponto' : 'pontos' }} 
+              <span class="ms-5 me-5 fs-4  text-center container__img__autor"
+                [ngClass]="{'positive':message.pontos > 0, 'negative':message.pontos < 0,'neutro':message.pontos == 0}">
+                {{ message.pontos}} {{ message.pontos == -1 || message.pontos ==0 || message.pontos ==1 ? 'ponto' :
+                'pontos' }}
               </span>
-              <div class="me-2">
+              <div class="me-2 ">
                 <button class="btn btn-outline-info border-0" (click)="like(message.id)">
                   <img width="50px" src="../../assets/like/gostar.png" />
                   {{ message.likes }}
@@ -68,10 +80,12 @@
     <!-- botões de paginação-->
     <div class="row mb-5">
       <div class="col-12 d-flex justify-content-between">
-      <button class="btn btn-primary p-2 button__width  " (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }}/{{ totalPages }}</span>
-      <button class="btn btn-primary p-2 button__width  "  (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
-    </div>
+        <button class="btn btn-primary p-2 button__width  " (click)="previousPage()"
+          [disabled]="currentPage === 1">Previous</button>
+        <span translate="no">Page {{currentPage}}/{{ totalPages }}</span>
+        <button class="btn btn-primary p-2 button__width  " (click)="nextPage()"
+          [disabled]="currentPage * itemsPerPage >= messages.length">Next</button>
+      </div>
     </div>
   </section>
 </main>

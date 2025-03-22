@@ -2,8 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path'); // Módulo para lidar com caminhos de arquivos e diretórios.
-// const port = 3000;
-const port = 8000;
+//const port = 3307; // porta para o wampserver
+const port = 8000;  // porta para o xamp e outros servidores
+//const port = 3000;  // porta para o xamp e outros servidores
+
 
 const usersRoutes = require('./routes/users');
 const { router: loginRoutes, authenticateJWT } = require('./routes/login');

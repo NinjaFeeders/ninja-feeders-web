@@ -1,18 +1,24 @@
-<div>
+<div >
   
   <div>
     <app-notification></app-notification>
   </div>
   <div>
-    <app-header (toggleMenu)="isMenuExpanded = !isMenuExpanded"></app-header>
+    <!-- eventEmiter  (toogleMenu) vindo do header, quando escutado: chama a função toogleMenu() do component app.component.ts -->
+    <app-header (toggleMenu)="toggleMenu()" ></app-header>
   </div>
 
   <div class="content-wrapper">
+    
     <!--app-user-list é o componente da lista de usuarios-->
-    <app-user-list [isMenuExpanded]="isMenuExpanded"></app-user-list>
+    <!-- a expressão [MExpanded] = isMenuExpanded significa o seguinte: a propriedade "MExpanded" dentro do [] pertence 
+    ao compnente user-list , é uma propriedade do tipo boleana, que vai ter seu valor alterado pelo "isMenuExpanded"
+    que tambem é uma propriedade boleana, implementada no component app, e passa para a props  MExpanded  do componente user-list   
+  atraves de propert bindings  -->
+     <app-user-list [MExpanded]="isMenuExpanded"></app-user-list> 
 
     
-    <div class="message-area">
+    <div id="list__msg" class="message-area">
       <router-outlet></router-outlet>
     </div>
   </div>

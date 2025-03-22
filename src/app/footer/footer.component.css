@@ -4,11 +4,28 @@
     .button__width{
       width: 100px;
     }
+
+    .desktop__button{
+      display: none;
+    }
+
+    .smartphone__button{
+      
+    }
   }
   @media(min-width:600px){
     .button__width{
       width: 120px;
+     
     }
+    .smartphone__button{
+      display: none;
+    }
+
+    .text__area{
+      position: relative;
+    }
+   
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MensagensService } from '../mensagens.service';
@@ -19,9 +19,10 @@ export class FooterComponent implements OnInit {
   isPrivate:boolean = false;
 
   // variavel para fazer a contagem de caracteres da entrada de dados na text area
-  contagenCaractere:number=0;
+  @Input() contagenCaractere:number=0;
+  
 
-  constructor(private mensagensService:MensagensService,private autorMSG:AuthService) { }
+  constructor(private mensagensService:MensagensService,private autorMSG:AuthService ,private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -46,6 +47,7 @@ export class FooterComponent implements OnInit {
     
     console.log("nome de usuario chegou em footer",this.autor);
 
+    // separa o titulo da msg, pegando até os primeiros 72 caracteres da mensagem original
     let titulomsg = this.msg.split('\n')[0]; // separamos a  primeira linha da msg para separar o titulo da msg
     if(titulomsg.length > 72){// subtrair os primeiros 72 caracteres da primeira linha da msg
       titulomsg = titulomsg.substring(0,72) +'...';
@@ -53,13 +55,18 @@ export class FooterComponent implements OnInit {
       titulomsg = titulomsg.substring(0,titulomsg.length) +'...';
     }
 
-    const mensageMsg = this.msg // mensagem completa
+    // mensagem completa
+    const mensageMsg = this.msg 
     
+    // visibilidade da msg
     this.visibilit_msg = this.isPrivate ?'private':'public'; // Define a visibilidade da mensagem 
     const visibilidade_msg = this.visibilit_msg;
 
       console.log(`titulo = ${titulomsg} \n mensagem = ${mensageMsg} \n autor = ${this.autor}`);
+
+      // separ o id do autor da msg
       this.autor_id = Number(this.autorMSG.getIdUser());
+      // chama o serviço de registro de msg, passando para o metodo de registro, a msg, o autor o id a visibilidade e o titulo, para registro da msg
   this.mensagensService.registerMsgService(mensageMsg,this.autor, this.autor_id,visibilidade_msg,titulomsg).subscribe(
   
     response => {
@@ -81,9 +88,14 @@ export class FooterComponent implements OnInit {
  
 }
 
-
+/** a função abaixo é responsavel pela contagem de caractere digitado pelo usuario no text area
+ * essa função incrementa a propriedade contagenCaractere, e cada mudança que acontece nessa variavel 
+ * é refletida na label abaixo do botaão de enviar mensagens
+ */
 contCaractereTextArea(){
-  this.contagenCaractere = this.msg.length;
+  setTimeout(() => {
+    this.contagenCaractere = this.msg.length;
+  }, 10);
 }
 
 }

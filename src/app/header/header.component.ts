@@ -29,17 +29,18 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  logout(){
+  logout(){ // encerra a cessão 
     this.authService.logout();
     this.isLoggedIn = false;
     this.username = null;
   }
 
-  toggleMenuClicked() {
+  toggleMenuClicked() { // vai emitir um evento que vai ser usado para expandir e contrair o menu hamburguer, que mostra e esconde a lisata de usuarios membros da rede
     this.toggleMenu.emit();
+    
   }
 
-  ngOnDestroy() {
+  ngOnDestroy() { // encerra o ciclo de vida desse componente, evita erro de vazamento de memória
     this.authSubscription.unsubscribe();
     this.usernameSubscription.unsubscribe();
   }

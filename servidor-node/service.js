@@ -2,8 +2,8 @@
 // esse serviço precisa do seguinte modulo instalado na pasta do servidor node: npm install node-windows
 // apos a instalação do modulo, e do codigo implementado nesse arquivo, deve ser executado o seguinte comando
 // para execultar o script que instalara oa serviço no windows.
-// codigo pra executar o script: node services.js  
-// lembrando que services.js foi o nome dado ao arquivo em que aqui estamos implementando o script
+// codigo pra executar o script: node service.js  
+// lembrando que service.js foi o nome dado ao arquivo em que aqui estamos implementando o script
 // apos a instalação do serviço devemos ir em serviços do windows encontrar serviço que criamos no nosso caso: MeuServicoNode
 // clicar nele com o direito do mause, clicar em propriedade e segue a instrução abaixo:
 /**
@@ -21,9 +21,12 @@ const Service = require('node-windows').Service;
 
 // Cria um novo objeto de serviço
 const svc = new Service({
-  name: 'MeuServidorNodeNinjaFeeders',
+  name: 'ServidorNodeAtualmenteEmExecucao',
   description: 'Servidor Node.js iniciado automaticamente',
-  script: 'D:\\angeloProjeto\\restoredHome_angular\\testes\\restoredHouse\\servidor-node\\server.js', // Caminho correto do seu script
+  // o caminho abaixo é usado no ambiente de desenvolvimento, é onde esta a pasta servidor-node com o script server.js
+  //script: 'D:\\angeloProjeto\\restoredHome_angular\\testes\\restoredHouse\\servidor-node\\server.js', // Caminho correto do seu script
+  // o caminho abaixo é usado no ambiente de produção, é onde esta a pasta servidor-node com o script server.js
+  script: 'C:\\inetpub\\wwwroot\\servidor-node\\server.js',
   // Define a opção para reiniciar automaticamente em caso de falha
   restart: {
     period: 60000, // 1 minuto em milissegundos

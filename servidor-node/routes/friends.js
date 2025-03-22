@@ -5,6 +5,7 @@ const { authenticateJWT } = require('./login');
 
 // Enviar solicitação de amizade
 router.post('/friends', (req, res) => {
+    console.log("requisição ",req.body)
     const dbconnection = connectToDatabase();
     const {user_name, user_id,friend_id,user_name_friend_id } = req.body;
   
@@ -45,6 +46,38 @@ router.post('/friends/pending', (req, res) => {
         disconnectFromDatabase(dbconnection);
     });
 });
+
+// estatus de amizade, se é amgigo ou se esta com solicitação pendente
+
+router.post('/friend/status', (req, res) => {
+    console.log('/friend/status');
+    const dbconnection = connectToDatabase();
+    const { friend_id, user_id } = req.body;
+    
+    const sqlstatus = `
+        SELECT status 
+        FROM friends 
+        WHERE (user_id = ? AND friend_id = ?) 
+           OR (user_id = ? AND friend_id = ?)
+    `;
+    
+    dbconnection.query(sqlstatus, [user_id, friend_id, friend_id, user_id], (error, results) => {
+        if (error) {
+            console.error('Erro ao recuperar status da amizade:', error);
+            disconnectFromDatabase(dbconnection); // Desconectar imediatamente em caso de erro
+            return res.status(500).json({ message: 'Erro ao recuperar status da amizade.' });
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ status: results[0].status }); // Retornar apenas o campo "status"
+        } else {
+            res.status(404).json({ message: 'Amizade não encontrada.' }); // Caso não tenha resultados
+        }
+
+        disconnectFromDatabase(dbconnection); // Desconectar após a resposta
+    });
+});
+
 
 
 // Aceitar solicitação de amizade
@@ -99,7 +132,7 @@ router.get('/friends/list', (req, res) => {
     });
 });
 
-// Listar amizades do usuário
+// Listar amizades especifica  do usuário, este end point não esta em uso
 router.post('/friends/list/especific', (req, res) => {
     const dbconnection = connectToDatabase();
     const {user_name, user_id,friend_id} = req.body;

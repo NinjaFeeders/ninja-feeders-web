@@ -4,8 +4,8 @@ export interface Friend {
     user_id: number;
     friend_name: string;
     friend_id: number;
-    status: string
     created_at:string;
     updated_at:string;
+    sttFriend:string;
   }
   

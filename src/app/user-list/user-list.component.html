@@ -1,31 +1,48 @@
 <!-- barra lateral  para exibição do menbros da rede que estaão conectados-->
 
-<aside class="user-logados  col"  [ngClass]="{'expanded': isMenuExpanded}">
-  
+<aside class="user-logados  col" [ngClass]="{'expanded': MExpanded}">
+
 
 
     <div class=" border-bottom text-center  text__membros ">
-        <h4 class="nome-do-usuario">Membros</h4>
+        <h4 class="nome-do-usuario title__membros">Membros</h4>
     </div>
     <div>
-        <app-notification></app-notification>
+        <app-notification></app-notification> <!--notifica o usuario somente quando tem solicitação de amizade-->
     </div>
-    <div *ngFor="let friend of membrosDaRede" class=" row  m-1 ">
-       <div class=" d-grid gap-2 ">
-        <!-- <button type="submit" class="p-2 btn btn-dark  "  (click)="navigateToPrivatePage(user.username) "> {{user.username}}</button> -->
-        <div class="dropdown d-grid gap-2">
-            <button type="submit" class="p-2 btn btn-dark  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{friend.username}}
-            </button>
-            <ul class="dropdown-menu border border-3 border-secundary w-100 p-2 bg-black text-center">
-              <!-- <li ><a class="dropdown-item clicavel p-2 btn w-100 text-center bg-warning  mb-1 " (click)="navigateToPrivatePage(user.username) ">Conversa privado</a></li> -->
-              <li  *ngIf="!friend.isFriend" ><a class="dropdown-item clicavel p-2 btn w-100 text-center {{colorButton}}"  (click)="addAmigo(friend.id,friend.username)"> {{statusConectionUsers}} {{friend.username}}</a></li>
-              <li  *ngIf="friend.isFriend"><a class="dropdown-item clicavel p-2 btn w-100 text-center {{colorButton}}"  (click)="removerAmigo(friend.id)"> {{statusConectionUsers}}  {{friend.username}}</a></li>
-              <!-- <li  *ngIf="status.status==''||null"><a class="dropdown-item clicavel p-2 btn w-100 text-center {{colorButton}}"  (click)="removerAmigo(friend.id)">{{statu.status}} {{friend.username}}</a></li> -->
+    <div class="list__user">
+        <div *ngFor="let friend of membrosDaRede" class=" row  m-1 ">
+            <div class=" d-grid gap-2 ">
+                <!-- <button type="submit" class="p-2 btn btn-dark  "  (click)="navigateToPrivatePage(user.username) "> {{user.username}}</button> -->
+                <div class="dropdown d-grid gap-2">
+                    <button type="submit" class="p-2 btn btn-dark  dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false" translate="no">
+                        {{friend.username}}
+                    </button>
+                    <ul class="dropdown-menu border border-3 border-secundary w-100 p-2 bg-black text-center"
+                        translate="no">
+                        <!-- <li ><a class="dropdown-item clicavel p-2 btn w-100 text-center bg-warning  mb-1 " (click)="navigateToPrivatePage(user.username) ">Conversa privado</a></li> -->
+                        <li *ngIf="!friend.sttFriends || friend.sttFriends == ''">
+                            <a  
+                            [ngClass]="{'bg-info': !friend.sttFriends || friend.sttFriends === '' || friend.sttFriends === null}"
+                                class="dropdown-item clicavel p-2 btn w-100 text-center "
+                                (click)="addAmigo(friend.id,friend.username)"> Add amgigo
+                                {{friend.username}}</a>
+                        </li>
+                        <li *ngIf="friend.sttFriends || friend.sttFriends == 'Pendente' || friend.sttFriends =='Amigos'">
+                            <a  [ngClass]="{
+                               
+                                'bg-warning': friend.sttFriends === 'Pendente',
+                                'bg-danger': friend.sttFriends === 'Amigos'
+                              }" 
+                            class="dropdown-item clicavel p-2 btn w-100 text-center">
+                                Remover {{friend.username}}</a>
+                        </li>
 
-            </ul>
-          </div>
-    </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </aside>
 <!-- fim barra lateral  para exibição do menbros da rede que estaão conectados-->

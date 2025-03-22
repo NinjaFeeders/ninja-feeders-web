@@ -14,11 +14,11 @@ export class FriendService {
   friends:Friend[]=[];
   
     // url do servidor para endpoint local
-   //private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'http://localhost:8000/api';
 
-     // url do servidor para endpoint do servidor de produção
-  private apiUrl = 'http://jcwebteste.com.br:8000/api'
-  // private apiUrl = 'http://jcwebteste.com.br:3000/api'
+  // url do servidor para endpoint do servidor de produção
+  private apiUrl = 'http://jairocesa.com.br:8000/api'
+
 
   // observavel para mudar o estado do botão de solicitar amizade
 
@@ -72,6 +72,10 @@ export class FriendService {
    return this.http.post<any>(`${this.apiUrl}/friends/pending`,{friend_id}); // eu sou o friend_id    
   }
 
+  getStatusFriend(user_id:number,friend_id:number){
+    return this.http.post<any>(`${this.apiUrl}/friend/status`,{user_id,friend_id});
+  }
+
   aceitarAmizade(id: number, user_id: number,friend_id:number): Observable<any> {
     return this.http.put(`${this.apiUrl}/friends/accept`, {id,user_id,friend_id});
   }
@@ -88,7 +92,7 @@ export class FriendService {
     return this.http.get<any[]>(`${this.apiUrl}/friends/list`);
   }
 
-  getFriendsEspecific(user_name:string, user_id:number,friend_id:number): Observable<any> {
+  getFriendsEspecific(user_name:string, user_id:number,friend_id:number): Observable<any> { // nbão esta em uso
     return this.http.post<any>(`${this.apiUrl}/friends/list/especific`,{user_name,user_id,friend_id});
   }
 

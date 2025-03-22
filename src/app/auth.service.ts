@@ -9,11 +9,11 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   // url do servidor para endpoint local
-   //  private baseUrl = 'http://localhost:8000/api';
+   //private baseUrl = 'http://localhost:8000/api';
 
      // url do servidor para endpoint do servidor de produção
-   private baseUrl = 'http://jcwebteste.com.br:8000/api'
-  //  private baseUrl = 'http://jcwebteste.com.br:3000/api'
+     private baseUrl = 'http://jairocesa.com.br:8000/api'
+
 
   private tokenKey = 'authToken';
   private usernameKey = 'authUsername';
@@ -40,6 +40,7 @@ export class AuthService {
   }
 
   register(nome: string, username: string, password: string) {
+     console.log("register service", nome, username, password);
     return this.http.post<any>(`${this.baseUrl}/usersregister`, { nome, username, password }).pipe(
       tap({
         next: (response) => {
@@ -55,6 +56,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
+    console.log("login service", username, password);
     return this.http.post<any>(`${this.baseUrl}/login`, { username, password }).pipe(
       tap({
         next: (res) => {
